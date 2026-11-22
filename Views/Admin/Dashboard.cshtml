@@ -1,0 +1,423 @@
+﻿
+@{
+    ViewBag.Title = "Admin Dashboard";
+}
+
+<style>
+    body {
+        background: #F3F3F3;
+        color:white;
+        font-family: 'Segoe UI', Arial, sans-serif;
+    }
+
+    /* GENERAL FONT COLORS */
+    body {
+        color: #34344F;
+    }
+
+    /* HEADER TEXT */
+    .admin-header h1 {
+        color: #FFFFFF;
+    }
+
+    .admin-header p {
+        color: #E2AAC3;
+    }
+
+    /* SECTION HEADING */
+    .section-heading {
+        color: #43436F;
+    }
+
+    /* STATISTICS CARDS */
+    .stat-card h5 {
+        color: #43436F;
+    }
+
+    .stat-number {
+        color: #B83846;
+    }
+
+    .stat-card .text-muted {
+        color: #77778F !important;
+    }
+
+    /* ADMIN MENU */
+    .admin-menu h4 {
+        color: #43436F;
+    }
+
+    .admin-menu hr {
+        border-color: #E0CBD1;
+    }
+
+    /* BUTTON TEXT */
+    .btn-primary {
+        color: #FFFFFF;
+    }
+
+    .btn-outline-primary {
+        color: #43436F;
+    }
+
+        .btn-outline-primary:hover {
+            color: #FFFFFF;
+        }
+
+    .btn-danger {
+        color: #FFFFFF;
+    }
+
+    /* ALERT TEXT */
+    .alert-success {
+        color: #245B3B;
+    }
+
+    .alert-danger {
+        color: #842029;
+    }
+
+    /* HEADER */
+    .admin-header {
+        background: linear-gradient(135deg, #43436F, #292947);
+        color: white;
+        padding: 42px 20px;
+        border-radius: 0 0 25px 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 20px rgba(67, 67, 111, 0.18);
+    }
+
+        .admin-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .admin-header p {
+            color: #E2AAC3;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .dashboard-container {
+        padding-bottom: 40px;
+    }
+
+    /* SECTION TITLE */
+    .section-heading {
+        color: #43436F;
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    /* STATISTICS GRID */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        gap: 14px;
+    }
+
+    /* STAT CARDS */
+    .stat-card {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 15px;
+        padding: 18px 10px;
+        text-align: center;
+        min-width: 0;
+        min-height: 190px;
+        box-shadow: 0 4px 14px rgba(67, 67, 111, 0.06);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #B83846;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 24px rgba(67, 67, 111, 0.13);
+        }
+
+    .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 13px;
+        background: #F5E8ED;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 25px;
+        margin: 5px auto 13px;
+    }
+
+    .stat-card h5 {
+        color: #43436F;
+        font-size: 13px;
+        font-weight: 650;
+        margin-bottom: 8px;
+    }
+
+    .stat-number {
+        color: #B83846;
+        font-size: 28px;
+        font-weight: 750;
+        margin-bottom: 12px;
+    }
+
+    .stat-card .btn {
+        font-size: 11px;
+        font-weight: 600;
+        padding: 6px 8px;
+        border-radius: 7px;
+        white-space: nowrap;
+    }
+
+    /* ADMIN MENU */
+    .admin-menu {
+        background: white;
+        border: 1px solid #E0CBD1;
+        border-radius: 17px;
+        padding: 25px;
+        margin-top: 35px;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.06);
+    }
+
+        .admin-menu h4 {
+            color: #43436F;
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .admin-menu hr {
+            border-color: #E0CBD1;
+            margin-bottom: 20px;
+        }
+
+        .admin-menu .btn {
+            padding: 10px 17px;
+            border-radius: 9px;
+            font-weight: 600;
+            font-size: 13px;
+            transition: 0.25s;
+        }
+
+            .admin-menu .btn:hover {
+                transform: translateY(-2px);
+            }
+
+    /* BUTTON COLORS */
+    .btn-primary {
+        background: #B83846;
+        border-color: #B83846;
+    }
+
+        .btn-primary:hover {
+            background: #982D39;
+            border-color: #982D39;
+        }
+
+    .btn-outline-primary {
+        color: #43436F;
+        border-color: #43436F;
+    }
+
+        .btn-outline-primary:hover {
+            background: #43436F;
+            color: white;
+        }
+
+    .btn-danger {
+        background: #43436F;
+        border-color: #43436F;
+    }
+
+        .btn-danger:hover {
+            background: #292947;
+            border-color: #292947;
+        }
+
+    /* ALERTS */
+    .alert {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    }
+
+    /* TABLET */
+    @@media (max-width: 1100px) {
+        .stats-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    /* MOBILE */
+    @@media (max-width: 600px) {
+        .admin-header {
+            padding: 30px 15px;
+        }
+
+            .admin-header h1 {
+                font-size: 25px;
+            }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .stat-card {
+            min-height: 175px;
+            padding: 15px 7px;
+        }
+
+        .stat-number {
+            font-size: 24px;
+        }
+
+        .admin-menu {
+            padding: 18px;
+        }
+
+            .admin-menu .btn {
+                width: 100%;
+            }
+    }
+</style>
+
+<!-- HEADER -->
+<div class="admin-header text-center">
+    <div class="container">
+        <h1>👨‍💼 Admin Dashboard</h1>
+        <p>Manage and monitor your Startup Team Finder platform</p>
+    </div>
+</div>
+
+<div class="container dashboard-container">
+
+    <!-- ALERTS -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>✓</strong> @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            <strong>!</strong> @TempData["Error"]
+        </div>
+    }
+
+    <!-- STATISTICS -->
+    <h4 class="section-heading">📊 Platform Overview</h4>
+
+    <div class="stats-grid">
+
+        <!-- USERS -->
+        <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <h5>Total Users</h5>
+            <div class="stat-number">@ViewBag.Users</div>
+            <a href="@Url.Action("ManageUsers", "Admin")"
+               class="btn btn-primary">
+                Manage Users
+            </a>
+        </div>
+
+        <!-- IDEAS -->
+        <div class="stat-card">
+            <div class="stat-icon">💡</div>
+            <h5>Startup Ideas</h5>
+            <div class="stat-number">@ViewBag.Ideas</div>
+            <a href="@Url.Action("BrowseIdeas", "Idea")"
+               class="btn btn-outline-primary">
+                View Ideas
+            </a>
+        </div>
+
+        <!-- TEAMS -->
+        <div class="stat-card">
+            <div class="stat-icon">👨‍👩‍👧‍👦</div>
+            <h5>Total Teams</h5>
+            <div class="stat-number">@ViewBag.Teams</div>
+            <a href="@Url.Action("MyTeams", "Team")"
+               class="btn btn-outline-primary">
+                View Teams
+            </a>
+        </div>
+
+        <!-- JOIN REQUESTS -->
+        <div class="stat-card">
+            <div class="stat-icon">📩</div>
+            <h5>Join Requests</h5>
+            <div class="stat-number">@ViewBag.JoinRequests</div>
+            <a href="@Url.Action("JoinRequests", "Team")"
+               class="btn btn-outline-primary">
+                View Requests
+            </a>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="stat-card">
+            <div class="stat-icon">💬</div>
+            <h5>Total Messages</h5>
+            <div class="stat-number">@ViewBag.Messages</div>
+            <span class="text-muted small">Platform activity</span>
+        </div>
+
+        <!-- NOTIFICATIONS -->
+        <div class="stat-card">
+            <div class="stat-icon">🔔</div>
+            <h5>Notifications</h5>
+            <div class="stat-number">@ViewBag.Notifications</div>
+            <span class="text-muted small">Platform activity</span>
+        </div>
+
+    </div>
+
+    <!-- ADMINISTRATION -->
+    <div class="admin-menu">
+
+        <h4>⚙️ Administration</h4>
+
+        <hr />
+
+        <div class="d-flex gap-2 flex-wrap" style="color:white;">
+
+            <a href="@Url.Action("ManageUsers", "Admin")"
+               class="btn btn-primary">
+                👥 Manage Users
+            </a>
+
+            <a href="@Url.Action("BrowseIdeas", "Idea")"
+               class="btn btn-outline-primary">
+                💡 View Ideas
+            </a>
+
+            <a href="@Url.Action("MyTeams", "Team")"
+               class="btn btn-outline-primary">
+                👨‍👩‍👧‍👦 View Teams
+            </a>
+
+            <a href="@Url.Action("Logout", "Account")"
+               class="btn btn-danger">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
