@@ -1,0 +1,694 @@
+﻿
+@model demostartupfinder.Models.Team
+
+@{
+    ViewBag.Title = "Team Details";
+
+    var members =
+        ViewBag.Members as IEnumerable<demostartupfinder.Models.TeamMember>;
+
+    var owner =
+        ViewBag.Owner as demostartupfinder.Models.User;
+
+    bool isOwner =
+        ViewBag.IsOwner != null &&
+        (bool)ViewBag.IsOwner;
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    /* Page Header */
+
+    .team-header {
+        background: linear-gradient(135deg, #43436F, #666694);
+        color: white;
+        text-align: center;
+        padding: 55px 20px;
+        margin-bottom: 40px;
+    }
+
+        .team-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .team-header p {
+            color: #F3F3F3;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .header-icon {
+        font-size: 43px;
+        margin-bottom: 12px;
+    }
+
+    /* Main Container */
+
+    .team-container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 0 15px 60px;
+    }
+
+    /* General Cards */
+
+    .team-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 17px;
+        padding: 28px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 20px rgba(67,67,111,0.06);
+    }
+
+    .section-title {
+        color: var(--slate-navy);
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .section-description {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .custom-divider {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 20px 0;
+    }
+
+    /* Team Information */
+
+    .team-info-card {
+        border-top: 5px solid var(--berry-red);
+    }
+
+    .team-name {
+        color: var(--slate-navy);
+        font-size: 29px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .team-description {
+        color: #777;
+        font-size: 15px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .team-label {
+        display: inline-block;
+        background: #F8E8EF;
+        color: var(--berry-red);
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .idea-box {
+        background: #F8EDF2;
+        border: 1px solid var(--dust-pink);
+        border-radius: 12px;
+        padding: 20px;
+        margin-top: 15px;
+    }
+
+        .idea-box h5 {
+            color: var(--slate-navy);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+    .idea-title {
+        color: var(--berry-red);
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
+
+    .btn-idea {
+        display: inline-block;
+        background: var(--slate-navy);
+        color: white;
+        padding: 9px 17px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-idea:hover {
+            background: var(--berry-red);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Owner Card */
+
+    .owner-card {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .owner-avatar {
+        width: 75px;
+        height: 75px;
+        min-width: 75px;
+        background: var(--pastel-pink);
+        color: var(--slate-navy);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 37px;
+    }
+
+    .owner-details h5 {
+        color: var(--slate-navy);
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .owner-details p {
+        color: #888;
+        font-size: 13px;
+        margin-bottom: 6px;
+        overflow-wrap: anywhere;
+    }
+
+    .owner-badge {
+        display: inline-block;
+        background: #F8E8EF;
+        color: var(--berry-red);
+        border-radius: 20px;
+        padding: 5px 12px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-top: 5px;
+    }
+
+    /* Members Section */
+
+    .members-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .member-count {
+        background: var(--pastel-pink);
+        color: var(--slate-navy);
+        border-radius: 20px;
+        padding: 7px 15px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .members-table {
+        margin-bottom: 0;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .members-table thead th {
+            background: var(--slate-navy);
+            color: white;
+            padding: 15px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            white-space: nowrap;
+        }
+
+            .members-table thead th:first-child {
+                border-radius: 9px 0 0 0;
+            }
+
+            .members-table thead th:last-child {
+                border-radius: 0 9px 0 0;
+            }
+
+        .members-table tbody td {
+            color: #555;
+            padding: 16px 15px;
+            font-size: 14px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eee;
+        }
+
+    .member-name {
+        color: var(--slate-navy);
+        font-weight: 700;
+    }
+
+    .member-avatar {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: #F8E8EF;
+        border-radius: 50%;
+        margin-right: 9px;
+        font-size: 17px;
+        vertical-align: middle;
+    }
+
+    .position-badge {
+        display: inline-block;
+        background: #ECE9F5;
+        color: var(--slate-navy);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .btn-remove {
+        background: white;
+        color: var(--berry-red);
+        border: 1px solid var(--berry-red);
+        padding: 7px 12px;
+        border-radius: 7px;
+        font-size: 12px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-remove:hover {
+            background: var(--berry-red);
+            color: white;
+        }
+
+    /* Empty State */
+
+    .empty-members {
+        text-align: center;
+        background: #FCF9FB;
+        border: 1px dashed var(--dust-pink);
+        border-radius: 12px;
+        padding: 40px 20px;
+    }
+
+    .empty-icon {
+        font-size: 45px;
+        margin-bottom: 12px;
+    }
+
+    .empty-members h5 {
+        color: var(--slate-navy);
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .empty-members p {
+        color: #888;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    /* Alerts */
+
+    .custom-alert {
+        border-radius: 10px;
+        padding: 15px 20px;
+        margin-bottom: 20px;
+        font-size: 14px;
+    }
+
+    /* Back Button */
+
+    .btn-back {
+        display: inline-block;
+        background: var(--slate-navy);
+        color: white;
+        padding: 11px 22px;
+        border-radius: 9px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-back:hover {
+            background: var(--berry-red);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Responsive */
+
+    @@media (max-width: 576px) {
+        .team-header {
+            padding: 40px 15px;
+        }
+
+            .team-header h1 {
+                font-size: 29px;
+            }
+
+        .team-card {
+            padding: 20px 16px;
+        }
+
+        .team-name {
+            font-size: 24px;
+        }
+
+        .owner-card {
+            align-items: flex-start;
+            gap: 13px;
+        }
+
+        .owner-avatar {
+            width: 58px;
+            height: 58px;
+            min-width: 58px;
+            font-size: 29px;
+        }
+
+        .members-table tbody td {
+            padding: 12px 10px;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+
+<div class="team-header">
+
+    <div class="container">
+
+        <div class="header-icon">👥</div>
+
+        <h1>Team Details</h1>
+
+        <p>
+            Discover your team, meet your members and
+            build something amazing together.
+        </p>
+
+    </div>
+
+</div>
+
+<div class="team-container">
+
+    <!-- Success Message -->
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success custom-alert">
+            <strong>✓ Success!</strong>
+            @TempData["Success"]
+        </div>
+    }
+
+    <!-- Error Message -->
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger custom-alert">
+            <strong>⚠ Error!</strong>
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- TEAM INFORMATION -->
+
+    <div class="team-card team-info-card">
+
+        <span class="team-label">
+            🚀 STARTUP TEAM
+        </span>
+
+        <h2 class="team-name">
+            @Model.TeamName
+        </h2>
+
+        <hr class="custom-divider" />
+
+        <h5 class="section-title">
+            📝 Team Description
+        </h5>
+
+        <p class="team-description">
+            @(string.IsNullOrWhiteSpace(Model.Description)
+                ? "No team description has been added yet."
+                : Model.Description)
+        </p>
+
+        @if (Model.Idea != null)
+        {
+            <div class="idea-box">
+
+                <h5>
+                    💡 Associated Startup Idea
+                </h5>
+
+                <p class="idea-title">
+                    @Model.Idea.Title
+                </p>
+
+                <a href="@Url.Action(
+                    "Details",
+                    "Idea",
+                    new { id = Model.IdeaId })"
+                   class="btn-idea">
+
+                    🚀 View Startup Idea →
+
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+    <!-- TEAM OWNER -->
+
+    <div class="team-card">
+
+        <h4 class="section-title">
+            👑 Team Owner
+        </h4>
+
+        <hr class="custom-divider" />
+
+        @if (owner != null)
+        {
+            <div class="owner-card">
+
+                <div class="owner-avatar">
+                    👤
+                </div>
+
+                <div class="owner-details">
+
+                    <h5>
+                        @owner.Name
+                    </h5>
+
+                    <p>
+                        📧 @owner.Email
+                    </p>
+
+                    @if (!string.IsNullOrEmpty(owner.Location))
+                    {
+                        <p>
+                            📍 @owner.Location
+                        </p>
+                    }
+
+                    <span class="owner-badge">
+                        👑 TEAM OWNER
+                    </span>
+
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <p class="text-muted mb-0">
+                Owner information is not available.
+            </p>
+        }
+
+    </div>
+
+    <!-- TEAM MEMBERS -->
+
+    <div class="team-card">
+
+        <div class="members-header">
+
+            <h4 class="section-title mb-0">
+                👥 Team Members
+            </h4>
+
+            <span class="member-count">
+                @(members == null ? 0 : members.Count()) Members
+            </span>
+
+        </div>
+
+        <hr class="custom-divider" />
+
+        @if (members != null && members.Any())
+        {
+            <div class="table-responsive">
+
+                <table class="table members-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Member Name</th>
+
+                            <th>Email Address</th>
+
+                            <th>Position</th>
+
+                            @if (isOwner)
+                            {
+                                <th>Action</th>
+                            }
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var member in members)
+                        {
+                            <tr>
+
+                                <td>
+
+                                    <span class="member-avatar">
+                                        👤
+                                    </span>
+
+                                    <span class="member-name">
+                                        @(member.User != null
+                                            ? member.User.Name
+                                            : "Unknown User")
+                                    </span>
+
+                                </td>
+
+                                <td>
+                                    @(member.User != null
+                                        ? member.User.Email
+                                        : "Not available")
+                                </td>
+
+                                <td>
+
+                                    <span class="position-badge">
+                                        @(string.IsNullOrWhiteSpace(member.Position)
+                                            ? "Member"
+                                            : member.Position)
+                                    </span>
+
+                                </td>
+
+                                @if (isOwner)
+                                {
+                                    <td>
+
+                                        <form method="post"
+                                              action="@Url.Action(
+                                                  "RemoveMember",
+                                                  "Team")">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <input type="hidden"
+                                                   name="id"
+                                                   value="@member.Id" />
+
+                                            <button type="submit"
+                                                    class="btn-remove"
+                                                    onclick="return confirm('Are you sure you want to remove this member?');">
+
+                                                🗑 Remove
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+                                }
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+        else
+        {
+            <div class="empty-members">
+
+                <div class="empty-icon">
+                    👥
+                </div>
+
+                <h5>No Team Members Yet</h5>
+
+                <p>
+                    No users have joined this team yet.
+                    Your team members will appear here.
+                </p>
+
+            </div>
+        }
+
+    </div>
+
+    <!-- BACK BUTTON -->
+
+    <div class="mb-4">
+
+        <a href="@Url.Action("MyTeams", "Team")"
+           class="btn-back">
+
+            ← Back to My Teams
+
+        </a>
+
+    </div>
+
+</div>

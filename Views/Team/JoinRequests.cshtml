@@ -1,0 +1,397 @@
+﻿@model IEnumerable<demostartupfinder.Models.JoinRequest>
+
+@{
+    ViewBag.Title = "Join Requests";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .join-header {
+        background: linear-gradient(135deg, var(--slate-navy), #65658E);
+        color: white;
+        padding: 55px 20px;
+        margin-bottom: 40px;
+        border-radius: 0 0 30px 30px;
+    }
+
+        .join-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .join-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+    .join-container {
+        max-width: 1050px;
+        margin: auto;
+        padding-bottom: 50px;
+    }
+
+    .success-alert {
+        background: #E5F4E9;
+        color: #236B3B;
+        border: 1px solid #B8DFC3;
+        border-radius: 12px;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+    }
+
+    .request-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 18px;
+        padding: 25px;
+        margin-bottom: 22px;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.07);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+        .request-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(67, 67, 111, 0.12);
+        }
+
+    .request-title {
+        color: var(--slate-navy);
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    .request-info {
+        color: #555;
+        font-size: 14px;
+        margin-bottom: 12px;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+    }
+
+        .request-info strong {
+            color: var(--slate-navy);
+        }
+
+    .request-message {
+        background: #FAF5F7;
+        border-left: 4px solid var(--pastel-pink);
+        border-radius: 8px;
+        padding: 12px 15px;
+        margin: 15px 0;
+        color: #555;
+        overflow-wrap: anywhere;
+    }
+
+    .request-date {
+        display: inline-block;
+        color: #888;
+        font-size: 12px;
+        margin-top: 8px;
+    }
+
+    .status-badge {
+        display: inline-block;
+        padding: 7px 14px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .status-pending {
+        background: #FFF1D6;
+        color: #986500;
+    }
+
+    .status-accepted {
+        background: #E2F3E7;
+        color: #287442;
+    }
+
+    .status-rejected {
+        background: #FCE5E7;
+        color: #A52C3A;
+    }
+
+    .request-actions {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 12px;
+        height: 100%;
+    }
+
+    .btn-accept,
+    .btn-reject {
+        min-width: 135px;
+        padding: 11px 18px;
+        border-radius: 9px;
+        font-weight: 600;
+        border: none;
+        transition: 0.2s ease;
+    }
+
+    .btn-accept {
+        background: var(--slate-navy);
+        color: white;
+    }
+
+        .btn-accept:hover {
+            background: #303052;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-reject {
+        background: var(--berry-red);
+        color: white;
+    }
+
+        .btn-reject:hover {
+            background: #962D39;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .completed-status {
+        font-weight: 700;
+        padding: 12px 15px;
+        border-radius: 10px;
+        display: inline-block;
+    }
+
+    .accepted-text {
+        background: #E2F3E7;
+        color: #287442;
+    }
+
+    .rejected-text {
+        background: #FCE5E7;
+        color: #A52C3A;
+    }
+
+    .empty-state {
+        background: white;
+        border: 1px dashed var(--pastel-pink);
+        border-radius: 20px;
+        text-align: center;
+        padding: 55px 20px;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.05);
+    }
+
+    .empty-icon {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+
+    .empty-state h4 {
+        color: var(--slate-navy);
+        font-weight: 700;
+    }
+
+    .empty-state p {
+        color: #777;
+        margin-bottom: 0;
+    }
+
+    @@media (max-width: 767px) {
+        .join-header {
+            padding: 40px 15px;
+        }
+
+            .join-header h1 {
+                font-size: 28px;
+            }
+
+        .request-card {
+            padding: 20px;
+        }
+
+        .request-actions {
+            align-items: stretch;
+            margin-top: 22px;
+        }
+
+            .request-actions form,
+            .request-actions button {
+                width: 100%;
+            }
+
+            .request-actions .btn-accept,
+            .request-actions .btn-reject {
+                width: 100%;
+            }
+    }
+</style>
+
+<div class="join-header text-center">
+    <div class="container">
+        <h1>🤝 Join Requests</h1>
+        <p>Manage people who want to join your startup teams.</p>
+    </div>
+</div>
+
+<div class="container join-container">
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="success-alert">
+            ✓ @TempData["Success"]
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var request in Model)
+        {
+            <div class="request-card">
+
+                <div class="row align-items-center">
+
+                    <div class="col-md-8">
+
+                        <h4 class="request-title">
+                            💡 @(request.Idea != null
+                                ? request.Idea.Title
+                                : "Startup Idea")
+                        </h4>
+
+                        <p class="request-info">
+                            <strong>Requested By:</strong>
+                            @(request.User != null
+                                ? request.User.Name
+                                : "Unknown User")
+                        </p>
+
+                        <div class="request-message">
+                            <strong>Message:</strong>
+                            <p class="mb-0 mt-1">
+                                @(string.IsNullOrWhiteSpace(request.Message)
+                                    ? "No message provided."
+                                    : request.Message)
+                            </p>
+                        </div>
+
+                        <p class="request-info">
+                            <strong>Status:</strong>
+
+                            @if (request.Status == "Pending")
+                            {
+                                <span class="status-badge status-pending">
+                                    ● Pending
+                                </span>
+                            }
+                            else if (request.Status == "Accepted")
+                            {
+                                <span class="status-badge status-accepted">
+                                    ✓ Accepted
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="status-badge status-rejected">
+                                    ✕ Rejected
+                                </span>
+                            }
+                        </p>
+
+                        <span class="request-date">
+                            <i class="far fa-clock"></i>
+                            Requested on:
+                            @request.RequestDate.ToString("dd-MM-yyyy hh:mm tt")
+                        </span>
+
+                    </div>
+
+                    <div class="col-md-4">
+
+                        <div class="request-actions">
+
+                            @if (request.Status == "Pending")
+                            {
+                                using (Html.BeginForm(
+                                    "AcceptRequest",
+                                    "Team",
+                                    FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@request.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-accept">
+                                        ✓ Accept Request
+                                    </button>
+                                }
+
+                                using (Html.BeginForm(
+                                    "RejectRequest",
+                                    "Team",
+                                    FormMethod.Post))
+                                {
+                                    @Html.AntiForgeryToken()
+
+                                    <input type="hidden"
+                                           name="id"
+                                           value="@request.Id" />
+
+                                    <button type="submit"
+                                            class="btn btn-reject"
+                                            onclick="return confirm('Are you sure you want to reject this request?');">
+                                        ✕ Reject Request
+                                    </button>
+                                }
+                            }
+                            else if (request.Status == "Accepted")
+                            {
+                                <span class="completed-status accepted-text">
+                                    ✓ Request Accepted
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="completed-status rejected-text">
+                                    ✕ Request Rejected
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div class="empty-state">
+            <div class="empty-icon">📭</div>
+
+            <h4>No Join Requests Yet</h4>
+
+            <p>
+                You currently have no requests for your startup ideas.
+                New requests will appear here.
+            </p>
+        </div>
+    }
+
+</div>
