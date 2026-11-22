@@ -1,0 +1,410 @@
+﻿
+@model demostartupfinder.Models.User
+
+@{
+    ViewBag.Title = "My Profile";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    /* Page Header */
+
+    .profile-header {
+        background: linear-gradient(135deg, #43436F, #666694);
+        color: white;
+        text-align: center;
+        padding: 55px 20px;
+        margin-bottom: 45px;
+    }
+
+        .profile-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .profile-header p {
+            font-size: 16px;
+            color: #F3F3F3;
+            margin: 0;
+        }
+
+    /* Profile Container */
+
+    .profile-container {
+        max-width: 850px;
+        margin: auto;
+        padding: 0 15px 65px;
+    }
+
+    .profile-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(67,67,111,0.08);
+    }
+
+    /* Profile Top Section */
+
+    .profile-top {
+        background: linear-gradient(135deg, #F8E8EF, #F3F3F3);
+        text-align: center;
+        padding: 40px 20px 32px;
+        border-bottom: 1px solid var(--dust-pink);
+    }
+
+    .profile-avatar {
+        width: 115px;
+        height: 115px;
+        border-radius: 50%;
+        background: var(--pastel-pink);
+        border: 5px solid white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 55px;
+        margin: 0 auto 18px;
+        box-shadow: 0 5px 15px rgba(67,67,111,0.12);
+    }
+
+    .profile-name {
+        color: var(--slate-navy);
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .profile-email {
+        color: #777;
+        font-size: 15px;
+        margin-bottom: 15px;
+        overflow-wrap: anywhere;
+    }
+
+    .role-badge {
+        display: inline-block;
+        background: var(--berry-red);
+        color: white;
+        padding: 7px 18px;
+        border-radius: 25px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    /* Profile Details */
+
+    .profile-body {
+        padding: 35px;
+    }
+
+    .section-title {
+        color: var(--slate-navy);
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 22px;
+    }
+
+    .detail-card {
+        background: #FCF8FA;
+        border: 1px solid var(--dust-pink);
+        border-radius: 12px;
+        padding: 18px;
+        height: 25%;
+        transition: 0.3s;
+    }
+
+        .detail-card:hover {
+            border-color: var(--pastel-pink);
+            transform: translateY(-3px);
+        }
+
+    .detail-icon {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+    .detail-label {
+        display: block;
+        color: #888;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+        margin-bottom: 7px;
+    }
+
+    .detail-value {
+        color: var(--slate-navy);
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
+
+    /* About Section */
+
+    .about-section {
+        margin-top: 32px;
+    }
+
+    .about-box {
+        background: #F8EDF2;
+        border-left: 5px solid var(--berry-red);
+        border-radius: 10px;
+        padding: 22px;
+        color: var(--slate-navy);
+        font-size: 15px;
+        line-height: 1.8;
+        min-height: 80px;
+        overflow-wrap: anywhere;
+    }
+
+    .empty-bio {
+        color: #888;
+        font-style: italic;
+    }
+
+    /* Buttons */
+
+    .profile-actions {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 35px;
+        padding-top: 28px;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-edit-profile {
+        background: var(--berry-red);
+        color: white;
+        border: 1px solid var(--berry-red);
+        padding: 12px 25px;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-edit-profile:hover {
+            background: var(--slate-navy);
+            border-color: var(--slate-navy);
+            color: white;
+            text-decoration: none;
+        }
+
+    .btn-skills {
+        background: white;
+        color: var(--slate-navy);
+        border: 1px solid var(--slate-navy);
+        padding: 12px 25px;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-skills:hover {
+            background: var(--slate-navy);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Responsive */
+
+    @@media (max-width: 576px) {
+        .profile-header {
+            padding: 40px 15px;
+        }
+
+            .profile-header h1 {
+                font-size: 29px;
+            }
+
+        .profile-body {
+            padding: 23px 18px;
+        }
+
+        .profile-name {
+            font-size: 24px;
+        }
+
+        .profile-actions {
+            flex-direction: column;
+        }
+
+        .btn-edit-profile,
+        .btn-skills {
+            text-align: center;
+            width: 100%;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+
+<div class="profile-header">
+
+    <div class="container">
+
+        <h1>👤 My Profile</h1>
+
+        <p>
+            Your personal space in the Startup Team Finder community.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Profile Card -->
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <!-- Profile Information -->
+
+        <div class="profile-top">
+
+            <div class="profile-avatar">
+                👤
+            </div>
+
+            <h2 class="profile-name">
+                @Model.Name
+            </h2>
+
+            <p class="profile-email">
+                📧 @Model.Email
+            </p>
+
+            <span class="role-badge">
+                @(string.IsNullOrWhiteSpace(Model.Role) ? "User" : Model.Role)
+            </span>
+
+        </div>
+
+        <!-- Profile Details -->
+
+        <div class="profile-body">
+
+            <h4 class="section-title">
+                Personal Information
+            </h4>
+
+            <div class="row g-3">
+
+                <!-- Location -->
+
+                <div class="col-md-6">
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">📍</div>
+
+                        <span class="detail-label">
+                            Location
+                        </span>
+
+                        <p class="detail-value">
+                            @(string.IsNullOrWhiteSpace(Model.Location)
+                                ? "Not provided"
+                                : Model.Location)
+                        </p>
+
+                    </div>
+
+                </div>
+                <br />
+                <!-- Role -->
+
+                <div class="col-md-6">
+
+                    <div class="detail-card">
+
+                        <div class="detail-icon">💼</div>
+
+                        <span class="detail-label">
+                            Account Role
+                        </span>
+
+                        <p class="detail-value">
+                            @(string.IsNullOrWhiteSpace(Model.Role)
+                                ? "User"
+                                : Model.Role)
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- About Me -->
+
+            <div class="about-section">
+
+                <h4 class="section-title">
+                    📝 About Me
+                </h4>
+
+                <div class="about-box">
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Bio))
+                    {
+                        @Model.Bio
+                    }
+                    else
+                    {
+                        <span class="empty-bio">
+                            You haven't added a bio yet.
+                            Click Edit Profile to tell others about yourself.
+                        </span>
+                    }
+
+                </div>
+
+            </div>
+
+            <!-- Action Buttons -->
+
+            <div class="profile-actions">
+
+                <a href="@Url.Action("EditProfile", "Profile")"
+                   class="btn-edit-profile">
+
+                    ✏️ Edit Profile
+
+                </a>
+
+                <a href="@Url.Action("Skills", "Profile")"
+                   class="btn-skills">
+
+                    ⭐ My Skills
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,366 @@
+﻿
+@model demostartupfinder.Models.User
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    /* Header */
+
+    .edit-header {
+        background: linear-gradient(135deg, #43436F, #666694);
+        color: white;
+        padding: 55px 20px;
+        margin-bottom: 45px;
+        text-align: center;
+    }
+
+        .edit-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .edit-header p {
+            color: #F3F3F3;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .header-icon {
+        font-size: 42px;
+        margin-bottom: 12px;
+    }
+
+    /* Form Container */
+
+    .edit-container {
+        max-width: 760px;
+        margin: 0 auto 65px;
+        padding: 0 15px;
+    }
+
+    .edit-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 18px;
+        padding: 38px;
+        box-shadow: 0 8px 25px rgba(67, 67, 111, 0.08);
+    }
+
+    .form-heading {
+        color: var(--slate-navy);
+        font-size: 23px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .form-description {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    /* Form Fields */
+
+    .form-group-custom {
+        margin-bottom: 23px;
+    }
+
+        .form-group-custom label {
+            display: block;
+            color: var(--slate-navy);
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 9px;
+        }
+
+    .form-control-custom {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--dust-pink);
+        border-radius: 9px;
+        background: #FCFAFB;
+        color: var(--slate-navy);
+        font-size: 14px;
+        transition: all 0.3s ease;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+        .form-control-custom:focus {
+            border-color: var(--berry-red);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.10);
+        }
+
+    textarea.form-control-custom {
+        resize: vertical;
+        min-height: 125px;
+    }
+
+    .field-icon {
+        margin-right: 7px;
+    }
+
+    /* Buttons */
+
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+        padding-top: 25px;
+        border-top: 1px solid #eee;
+    }
+
+    .btn-save {
+        background: var(--berry-red);
+        color: white;
+        border: none;
+        border-radius: 9px;
+        padding: 12px 24px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+        cursor: pointer;
+    }
+
+        .btn-save:hover {
+            background: var(--slate-navy);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .btn-cancel {
+        background: #F0EBEF;
+        color: var(--slate-navy);
+        border: 1px solid var(--dust-pink);
+        border-radius: 9px;
+        padding: 12px 24px;
+        font-weight: 600;
+        font-size: 14px;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-cancel:hover {
+            background: var(--dust-pink);
+            color: var(--slate-navy);
+            text-decoration: none;
+        }
+
+    .form-note {
+        background: #F8EDF2;
+        border-left: 4px solid var(--berry-red);
+        padding: 13px 16px;
+        border-radius: 7px;
+        color: var(--slate-navy);
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    /* Responsive */
+
+    @@media (max-width: 576px) {
+        .edit-header {
+            padding: 40px 15px;
+        }
+
+            .edit-header h1 {
+                font-size: 28px;
+            }
+
+        .edit-card {
+            padding: 23px 18px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-save,
+        .btn-cancel {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+
+<div class="edit-header">
+
+    <div class="container">
+
+        <div class="header-icon">✏️</div>
+
+        <h1>Edit Your Profile</h1>
+
+        <p>
+            Keep your information updated and let others
+            know more about you.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Edit Profile Form -->
+
+<div class="edit-container">
+
+    <div class="edit-card">
+
+        <h3 class="form-heading">
+            Personal Information
+        </h3>
+
+        <p class="form-description">
+            Update your details to make your profile stand out.
+        </p>
+
+        <div class="form-note">
+            💡 Keep your profile information accurate so
+            potential teammates can connect with you easily.
+        </div>
+
+        @using (Html.BeginForm(
+            "EditProfile",
+            "Profile",
+            FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.Id)
+
+            @Html.HiddenFor(model => model.Password)
+
+            @Html.HiddenFor(model => model.Role)
+
+            @Html.HiddenFor(model => model.CreatedAt)
+
+            @Html.HiddenFor(model => model.ProfileImage)
+
+            <div class="form-group-custom">
+
+                <label>
+                    <span class="field-icon">👤</span>
+                    Full Name
+                </label>
+
+                @Html.TextBoxFor(
+                         model => model.Name,
+                         new
+                         {
+                             @class = "form-control-custom",
+                             placeholder = "Enter your full name"
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Name,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group-custom">
+
+                <label>
+                    <span class="field-icon">📧</span>
+                    Email Address
+                </label>
+
+                @Html.TextBoxFor(
+                         model => model.Email,
+                         new
+                         {
+                             @class = "form-control-custom",
+                             type = "email",
+                             placeholder = "Enter your email address"
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Email,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group-custom">
+
+                <label>
+                    <span class="field-icon">📍</span>
+                    Location
+                </label>
+
+                @Html.TextBoxFor(
+                         model => model.Location,
+                         new
+                         {
+                             @class = "form-control-custom",
+                             placeholder = "Enter your city or location"
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Location,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group-custom">
+
+                <label>
+                    <span class="field-icon">📝</span>
+                    About Yourself
+                </label>
+
+                @Html.TextAreaFor(
+                         model => model.Bio,
+                         new
+                         {
+                             @class = "form-control-custom",
+                             rows = "5",
+                             placeholder = "Tell others about your skills, interests and experience..."
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Bio,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <!-- Buttons -->
+
+            <div class="form-actions">
+
+                <button type="submit" class="btn-save">
+                    💾 Save Changes
+                </button>
+
+                <a href="@Url.Action("MyProfile", "Profile")"
+                   class="btn-cancel">
+                    ← Cancel
+                </a>
+
+            </div>
+        }
+
+    </div>
+
+</div>
