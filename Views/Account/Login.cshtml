@@ -1,0 +1,225 @@
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<style>
+    body {
+        background-color: #F3F3F3;
+    }
+
+    .login-page {
+        min-height: 85vh;
+        padding: 60px 15px;
+        background: linear-gradient(135deg, #F3F3F3, #E0CBD1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-card {
+        background: #FFFFFF;
+        padding: 40px 35px;
+        border-radius: 18px;
+        border: 1px solid #E0CBD1;
+        box-shadow: 0 10px 30px rgba(67, 67, 111, 0.12);
+        max-width: 450px;
+        width: 100%;
+    }
+
+    .login-icon {
+        width: 75px;
+        height: 75px;
+        background: #E2AAC3;
+        color: #43436F;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 34px;
+        margin: 0 auto 20px;
+    }
+
+    .login-card h2 {
+        color: #43436F;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .login-description {
+        color: #777777;
+        text-align: center;
+        margin-bottom: 28px;
+        font-size: 15px;
+    }
+
+    .login-card label {
+        color: #43436F;
+        font-weight: 600;
+        font-size:19px;
+        margin-bottom: 8px;
+    }
+
+    .login-card .form-control {
+        height: 48px;
+        width: 100%;
+        border: 1px solid #E0CBD1;
+        border-radius: 9px;
+        padding: 10px;
+        background: #FDFBFC;
+    }
+
+        .login-card .form-control:focus {
+            border-color: #B83846;
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.12);
+        }
+
+    .login-btn {
+        width: 100%;
+        background: #B83846;
+        color: #FFFFFF;
+        border: none;
+        padding: 13px;
+        border-radius: 9px;
+        font-weight: 600;
+        font-size: 16px;
+        transition: 0.3s;
+        margin-top: 8px;
+    }
+
+        .login-btn:hover {
+            background: #43436F;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+    .forgot-link {
+        text-align: right;
+        margin-top: 15px;
+    }
+
+        .forgot-link a,
+        .register-link a {
+            color: #B83846;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+            .forgot-link a:hover,
+            .register-link a:hover {
+                color: #43436F;
+                text-decoration: underline;
+            }
+
+    .login-divider {
+        border-color: #E0CBD1;
+        margin: 25px 0;
+    }
+
+    .register-link {
+        text-align: center;
+        color: #666666;
+        font-size: 14px;
+    }
+
+    .login-card .alert {
+        border-radius: 9px;
+        font-size: 14px;
+    }
+
+    @@media (max-width: 576px) {
+        .login-page {
+            padding: 35px 15px;
+        }
+
+        .login-card {
+            padding: 30px 22px;
+        }
+    }
+</style>
+
+<div class="login-page">
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            &#128100;
+        </div>
+
+        <h2>Welcome Back!</h2>
+
+        <p class="login-description">
+            Login to your Startup Team Finder account
+            and continue building great ideas.
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["Success"]
+            </div>
+        }
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Email Address
+                </label>
+                <br />
+                <input type="email"
+                       name="email"
+                       class="form-control"
+                       placeholder="Enter your email"
+                       required />
+
+            </div>
+
+            <div class="mb-2">
+
+                <label class="form-label">
+                    Password
+                </label>
+                <br />
+                <input type="password"
+                       name="password"
+                       class="form-control"
+                       placeholder="Enter your password"
+                       required />
+
+            </div>
+
+            <div class="forgot-link">
+                <a href="@Url.Action("ForgotPassword", "Account")">
+                    Forgot Password?
+                </a>
+            </div>
+
+            <button type="submit" class="login-btn">
+                Login to Your Account
+            </button>
+        }
+
+        <hr class="login-divider" />
+
+        <div class="register-link">
+            Don't have an account?
+            <a href="@Url.Action("Register", "Account")">
+                Create Account
+            </a>
+        </div>
+
+    </div>
+
+</div>

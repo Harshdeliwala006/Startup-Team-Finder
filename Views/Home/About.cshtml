@@ -1,0 +1,355 @@
+﻿
+@{
+    ViewBag.Title = "About Us";
+}
+
+<style>
+    body {
+        background: #F3F3F3;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #34344F;
+    }
+
+    /* HERO SECTION */
+    .about-hero {
+        background: linear-gradient(135deg, #43436F, #292947);
+        padding: 65px 20px;
+        text-align: center;
+        border-radius: 0 0 30px 30px;
+        box-shadow: 0 6px 20px rgba(67, 67, 111, 0.15);
+    }
+
+        .about-hero h1 {
+            color: #FFFFFF;
+            font-size: 38px;
+            font-weight: 750;
+            margin-bottom: 15px;
+        }
+
+        .about-hero p {
+            color: #E2AAC3;
+            font-size: 19px;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+    /* MAIN CONTAINER */
+    .about-container {
+        max-width: 1050px;
+        margin: 45px auto;
+        padding: 0 20px 40px;
+    }
+
+    /* INTRODUCTION CARD */
+    .about-card {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 5px 20px rgba(67, 67, 111, 0.06);
+        margin-bottom: 35px;
+    }
+
+        .about-card h2 {
+            color: #43436F;
+            font-size: 27px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .about-card p {
+            color: #55556F;
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+    /* SECTION TITLE */
+    .section-title {
+        color: #43436F;
+        font-size: 27px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .section-subtitle {
+        color: #77778F;
+        text-align: center;
+        font-size: 14px;
+        margin-top: -15px;
+        margin-bottom: 30px;
+    }
+
+    /* FEATURE CARDS */
+    .feature-card {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 15px;
+        padding: 25px 18px;
+        height: 100%;
+        text-align: center;
+        box-shadow: 0 4px 14px rgba(67, 67, 111, 0.05);
+        transition: all 0.3s ease;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 10px 22px rgba(67, 67, 111, 0.12);
+            border-color: #E2AAC3;
+        }
+
+    .feature-icon {
+        width: 62px;
+        height: 62px;
+        margin: 0 auto 17px;
+        border-radius: 16px;
+        background: #F5E8ED;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+    }
+
+    .feature-card h5 {
+        color: #43436F;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .feature-card p {
+        color: #77778F;
+        font-size: 13px;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* BOTTOM BANNER */
+    .about-banner {
+        background: linear-gradient(135deg, #43436F, #292947);
+        border-radius: 18px;
+        padding: 35px 25px;
+        margin-top: 40px;
+        text-align: center;
+    }
+
+        .about-banner h3 {
+            color: #FFFFFF;
+            font-size: 25px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .about-banner p {
+            color: #E2AAC3;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+    .about-btn {
+        display: inline-block;
+        background: #B83846;
+        color: #FFFFFF;
+        padding: 11px 25px;
+        border-radius: 9px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .about-btn:hover {
+            background: #982D39;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+    /* RESPONSIVE */
+    @@media (max-width: 768px) {
+        .about-hero {
+            padding: 45px 15px;
+        }
+
+            .about-hero h1 {
+                font-size: 28px;
+            }
+
+            .about-hero p {
+                font-size: 16px;
+            }
+
+        .about-card {
+            padding: 23px;
+        }
+
+            .about-card h2,
+            .section-title {
+                font-size: 23px;
+            }
+    }
+</style>
+
+<!-- HERO SECTION -->
+<div class="about-hero">
+    <div class="container">
+
+        <h1>🚀 About Startup Team Finder</h1>
+
+        <p>Connect. Collaborate. Create.</p>
+
+    </div>
+</div>
+
+<div class="about-container">
+
+    <!-- PLATFORM INTRODUCTION -->
+    <div class="about-card">
+
+        <h2>🌟 Our Platform</h2>
+
+        <p>
+            Startup Team Finder is a web platform designed to help
+            entrepreneurs, students and developers connect with
+            people who have complementary skills and shared interests.
+            We aim to make collaboration easier by bringing talented
+            individuals together in one place.
+        </p>
+
+        <p>
+            Users can create professional profiles, showcase their
+            technical and professional skills, publish innovative
+            startup ideas and discover potential teammates.
+            The platform provides an environment where individuals
+            can turn their ideas into meaningful projects through
+            teamwork and communication.
+        </p>
+
+    </div>
+
+    <!-- FEATURES -->
+    <h2 class="section-title">What You Can Do</h2>
+
+    <p class="section-subtitle">
+        Everything you need to connect with the right people
+        and build your next big idea.
+    </p>
+
+    <div class="row g-4">
+
+        <!-- PROFILE -->
+        <div class="col-md-4 col-sm-6">
+            <div class="feature-card">
+
+                <div class="feature-icon">👤</div>
+
+                <h5>Create Your Profile</h5>
+
+                <p>
+                    Build a professional profile and introduce
+                    yourself to the startup community.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="col-md-4 col-sm-6">
+            <div class="feature-card">
+
+                <div class="feature-icon">💻</div>
+
+                <h5>Showcase Your Skills</h5>
+
+                <p>
+                    Add your technical and professional skills
+                    to highlight your strengths.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- TEAMMATES -->
+        <div class="col-md-4 col-sm-6">
+            <div class="feature-card">
+
+                <div class="feature-icon">🤝</div>
+
+                <h5>Find Teammates</h5>
+
+                <p>
+                    Discover people with complementary skills
+                    and shared interests.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- IDEAS -->
+        <div class="col-md-4 col-sm-6">
+            <div class="feature-card">
+
+                <div class="feature-icon">💡</div>
+
+                <h5>Publish Startup Ideas</h5>
+
+                <p>
+                    Share innovative ideas and find people
+                    interested in developing them.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- JOIN REQUESTS -->
+        <div class="col-md-4 col-sm-6">
+            <div class="feature-card">
+
+                <div class="feature-icon">📩</div>
+
+                <h5>Join Team Projects</h5>
+
+                <p>
+                    Send join requests and become part of
+                    exciting startup projects.
+                </p>
+
+            </div>
+        </div>
+
+        <!-- COMMUNICATION -->
+        <div class="col-md-4 col-sm-6">
+            <div class="feature-card">
+
+                <div class="feature-icon">💬</div>
+
+                <h5>Communicate & Collaborate</h5>
+
+                <p>
+                    Connect with other users and communicate
+                    through platform messaging.
+                </p>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- BOTTOM BANNER -->
+    <div class="about-banner">
+
+        <h3>Have an Idea? Build It With the Right Team!</h3>
+
+        <p>
+            Connect with talented people, share your vision
+            and start creating something meaningful.
+        </p>
+
+        <a href="@Url.Action("Register", "Account")"
+           class="about-btn">
+            Get Started 🚀
+        </a>
+
+    </div>
+
+</div>

@@ -1,0 +1,341 @@
+﻿
+@{
+    ViewBag.Title = "Contact Us";
+}
+
+<style>
+    body {
+        background: #F3F3F3;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #34344F;
+    }
+
+    /* HEADER */
+    .contact-header {
+        background: linear-gradient(135deg, #43436F, #292947);
+        padding: 55px 20px;
+        text-align: center;
+        border-radius: 0 0 28px 28px;
+        box-shadow: 0 6px 20px rgba(67, 67, 111, 0.15);
+    }
+
+        .contact-header h1 {
+            color: #FFFFFF;
+            font-size: 36px;
+            font-weight: 750;
+            margin-bottom: 12px;
+        }
+
+        .contact-header p {
+            color: #E2AAC3;
+            font-size: 17px;
+            margin: 0;
+        }
+
+    /* MAIN CONTAINER */
+    .contact-container {
+        max-width: 1100px;
+        margin: 45px auto;
+        padding: 0 20px 40px;
+    }
+
+    /* CARDS */
+    .contact-card {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 18px;
+        padding: 30px;
+        height: 100%;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.07);
+        transition: 0.3s ease;
+    }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(67, 67, 111, 0.12);
+        }
+
+        .contact-card h3 {
+            color: #43436F;
+            font-size: 23px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+    .card-subtitle {
+        color: #77778F;
+        font-size: 13px;
+        margin-bottom: 25px;
+    }
+
+    /* FORM */
+    .contact-form label {
+        color: #43436F;
+        font-size: 13px;
+        font-weight: 650;
+        margin-bottom: 8px;
+    }
+
+    .contact-form .form-control {
+        background: #FCFAFB;
+        border: 1px solid #E0CBD1;
+        border-radius: 9px;
+        padding: 11px 13px;
+        color: #34344F;
+        font-size: 14px;
+        box-shadow: none;
+        transition: 0.25s;
+    }
+
+        .contact-form .form-control::placeholder {
+            color: #A09AAA;
+        }
+
+        .contact-form .form-control:focus {
+            background: #FFFFFF;
+            border-color: #B83846;
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.10);
+        }
+
+    .contact-form textarea {
+        resize: vertical;
+    }
+
+    /* SEND BUTTON */
+    .send-btn {
+        background: #B83846;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 9px;
+        padding: 12px 22px;
+        font-size: 14px;
+        font-weight: 650;
+        transition: 0.3s;
+    }
+
+        .send-btn:hover {
+            background: #982D39;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(184, 56, 70, 0.2);
+        }
+
+    /* CONTACT INFORMATION */
+    .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 18px 0;
+        border-bottom: 1px solid #F0E5E9;
+    }
+
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+
+    .info-icon {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        border-radius: 12px;
+        background: #F5E8ED;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 21px;
+    }
+
+    .info-content h5 {
+        color: #43436F;
+        font-size: 14px;
+        font-weight: 700;
+        margin: 2px 0 6px;
+    }
+
+    .info-content p {
+        color: #77778F;
+        font-size: 13px;
+        margin: 0;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+    }
+
+    /* INFORMATION BANNER */
+    .contact-note {
+        background: #F8EEF2;
+        border: 1px solid #E0CBD1;
+        border-radius: 12px;
+        padding: 17px;
+        margin-top: 20px;
+    }
+
+        .contact-note h5 {
+            color: #43436F;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .contact-note p {
+            color: #77778F;
+            font-size: 12px;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+    /* RESPONSIVE */
+    @@media (max-width: 768px) {
+        .contact-header {
+            padding: 40px 15px;
+        }
+
+            .contact-header h1 {
+                font-size: 28px;
+            }
+
+        .contact-card {
+            padding: 22px;
+        }
+    }
+</style>
+
+<!-- HEADER -->
+<div class="contact-header">
+    <div class="container">
+        <h1>📩 Contact Us</h1>
+        <p>Have a question? We'd love to hear from you.</p>
+    </div>
+</div>
+
+<div class="contact-container">
+
+    <div class="row g-4">
+
+        <!-- CONTACT FORM -->
+        <div class="col-md-7">
+
+            <div class="contact-card">
+
+                <h3>✉️ Send Us a Message</h3>
+
+                <p class="card-subtitle">
+                    Fill out the form below and get in touch with our team.
+                </p>
+
+                <form method="post"
+                      action="@Url.Action("Contact", "Home")"
+                      class="contact-form">
+
+                    <div class="mb-3">
+                        <label for="contactName" class="form-label">
+                            Full Name
+                        </label>
+
+                        <input type="text"
+                               id="contactName"
+                               name="Name"
+                               class="form-control"
+                               placeholder="Enter your full name"
+                               required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contactEmail" class="form-label">
+                            Email Address
+                        </label>
+
+                        <input type="email"
+                               id="contactEmail"
+                               name="Email"
+                               class="form-control"
+                               placeholder="Enter your email address"
+                               required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="contactMessage" class="form-label">
+                            Your Message
+                        </label>
+
+                        <textarea id="contactMessage"
+                                  name="Message"
+                                  class="form-control"
+                                  rows="5"
+                                  placeholder="Write your message here..."
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit" class="send-btn">
+                        Send Message &nbsp; ➤
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- CONTACT INFORMATION -->
+        <div class="col-md-5">
+
+            <div class="contact-card">
+
+                <h3>📍 Contact Information</h3>
+
+                <p class="card-subtitle">
+                    Here are the ways to reach our platform.
+                </p>
+
+                <div class="contact-info-item">
+
+                    <div class="info-icon">📧</div>
+
+                    <div class="info-content">
+                        <h5>Email Address</h5>
+                        <p>support@startupteamfinder.com</p>
+                    </div>
+
+                </div>
+
+                <div class="contact-info-item">
+
+                    <div class="info-icon">🌍</div>
+
+                    <div class="info-content">
+                        <h5>Location</h5>
+                        <p>India</p>
+                    </div>
+
+                </div>
+
+                <div class="contact-info-item">
+
+                    <div class="info-icon">🕐</div>
+
+                    <div class="info-content">
+                        <h5>Working Hours</h5>
+                        <p>Monday - Friday</p>
+                        <p>9:00 AM - 6:00 PM</p>
+                    </div>
+
+                </div>
+
+                <div class="contact-note">
+
+                    <h5>💡 We're Here to Help!</h5>
+
+                    <p>
+                        Whether you have questions, suggestions or
+                        feedback about Startup Team Finder, feel free
+                        to contact us.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
