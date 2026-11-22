@@ -1,0 +1,418 @@
+﻿```cshtml
+@model demostartupfinder.Models.User
+
+@{
+    ViewBag.Title = "Teammate Details";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .teammate-header {
+        background: linear-gradient(135deg, var(--slate-navy), #65658E);
+        color: white;
+        padding: 55px 20px;
+        margin-bottom: 45px;
+        border-radius: 0 0 30px 30px;
+    }
+
+        .teammate-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .teammate-header p {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+
+    .profile-container {
+        max-width: 850px;
+        margin: auto;
+        padding-bottom: 55px;
+    }
+
+    .profile-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 22px;
+        overflow: hidden;
+        box-shadow: 0 8px 28px rgba(67, 67, 111, 0.09);
+    }
+
+    .profile-top {
+        height: 10px;
+        background: linear-gradient(90deg, var(--berry-red), var(--pastel-pink));
+    }
+
+    .profile-body {
+        padding: 45px;
+    }
+
+    .profile-avatar {
+        width: 125px;
+        height: 125px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--pastel-pink), #F5DCE7);
+        border: 5px solid white;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 55px;
+        margin: 0 auto 20px;
+    }
+
+    .profile-name {
+        color: var(--slate-navy);
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-location {
+        color: #777;
+        font-size: 15px;
+        margin-bottom: 20px;
+    }
+
+    .profile-section {
+        margin-top: 28px;
+    }
+
+    .section-title {
+        color: var(--slate-navy);
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        background: #F8EAF0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
+    }
+
+    .section-content {
+        background: #FAF8F9;
+        border: 1px solid #F0E6EA;
+        border-radius: 12px;
+        padding: 18px;
+        color: #555;
+        font-size: 14px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+    }
+
+    .skill-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .skill-badge {
+        background: #F8EAF0;
+        color: var(--berry-red);
+        border: 1px solid var(--dust-pink);
+        border-radius: 25px;
+        padding: 9px 17px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .contact-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 13px 0;
+        border-bottom: 1px solid #EEE5E9;
+        color: #555;
+        overflow-wrap: anywhere;
+    }
+
+        .contact-row:last-child {
+            border-bottom: none;
+        }
+
+    .contact-icon {
+        width: 38px;
+        height: 38px;
+        flex-shrink: 0;
+        background: #F8EAF0;
+        color: var(--berry-red);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-label {
+        display: block;
+        color: #888;
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+
+    .contact-value {
+        color: var(--slate-navy);
+        font-size: 14px;
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .profile-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 35px;
+    }
+
+    .btn-message {
+        background: var(--berry-red);
+        color: white;
+        border: none;
+        border-radius: 9px;
+        padding: 12px 24px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+        .btn-message:hover {
+            background: #962D39;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        background: white;
+        color: var(--slate-navy);
+        border: 1px solid var(--slate-navy);
+        border-radius: 9px;
+        padding: 12px 24px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.2s ease;
+    }
+
+        .btn-back:hover {
+            background: var(--slate-navy);
+            color: white;
+            text-decoration: none;
+        }
+
+    .empty-text {
+        color: #999;
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    @@media (max-width: 767px) {
+        .teammate-header {
+            padding: 40px 15px;
+        }
+
+            .teammate-header h1 {
+                font-size: 28px;
+            }
+
+        .profile-body {
+            padding: 25px 20px;
+        }
+
+        .profile-name {
+            font-size: 25px;
+        }
+
+        .profile-actions {
+            flex-direction: column;
+        }
+
+            .profile-actions a {
+                text-align: center;
+                width: 100%;
+            }
+    }
+</style>
+
+<div class="teammate-header text-center">
+    <div class="container">
+        <h1>👤 Teammate Profile</h1>
+        <p>Learn more about this potential teammate and their skills.</p>
+    </div>
+</div>
+
+<div class="container profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-top"></div>
+
+        <div class="profile-body">
+
+            <!-- Profile Information -->
+
+            <div class="text-center">
+
+                <div class="profile-avatar">
+                    👤
+                </div>
+
+                <h2 class="profile-name">
+                    @Model.Name
+                </h2>
+
+                <p class="profile-location">
+                    📍 @(string.IsNullOrWhiteSpace(Model.Location)
+                        ? "Location not specified"
+                        : Model.Location)
+                </p>
+
+            </div>
+
+            <hr />
+
+            <!-- About Section -->
+
+            <div class="profile-section">
+
+                <h4 class="section-title">
+                    <span class="section-icon">📝</span>
+                    About
+                </h4>
+
+                <div class="section-content">
+                    @(string.IsNullOrWhiteSpace(Model.Bio)
+                        ? "No bio available."
+                        : Model.Bio)
+                </div>
+
+            </div>
+
+            <!-- Skills Section -->
+
+            <div class="profile-section">
+
+                <h4 class="section-title">
+                    <span class="section-icon">💡</span>
+                    Skills & Expertise
+                </h4>
+
+                @if (Model.Skills != null && Model.Skills.Any())
+                {
+                    <div class="skill-list">
+
+                        @foreach (var skill in Model.Skills)
+                        {
+                            <span class="skill-badge">
+                                ✦ @skill.SkillName
+                            </span>
+                        }
+
+                    </div>
+                }
+                else
+                {
+                    <p class="empty-text">
+                        No skills added yet.
+                    </p>
+                }
+
+            </div>
+
+            <!-- Contact Section -->
+
+            <div class="profile-section">
+
+                <h4 class="section-title">
+                    <span class="section-icon">📞</span>
+                    Contact Information
+                </h4>
+
+                <div class="section-content">
+
+                    <div class="contact-row">
+
+                        <div class="contact-icon">
+                            ✉️
+                        </div>
+
+                        <div>
+                            <span class="contact-label">Email Address</span>
+
+                            <span class="contact-value">
+                                @Model.Email
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="contact-row">
+
+                        <div class="contact-icon">
+                            📍
+                        </div>
+
+                        <div>
+                            <span class="contact-label">Location</span>
+
+                            <span class="contact-value">
+                                @(string.IsNullOrWhiteSpace(Model.Location)
+                                    ? "Not specified"
+                                    : Model.Location)
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Action Buttons -->
+
+            <div class="profile-actions">
+
+                <a href="@Url.Action(
+                    "Messages",
+                    "Message",
+                    new { userId = Model.Id })"
+                   class="btn-message">
+                    💬 Message Teammate
+                </a>
+
+                <a href="@Url.Action("Find", "Teammate")"
+                   class="btn-back">
+                    ← Back to Teammates
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
