@@ -1,0 +1,360 @@
+﻿@model IEnumerable<demostartupfinder.Models.Idea>
+
+@{
+    ViewBag.Title = "Saved Ideas";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .saved-hero {
+        background: linear-gradient(135deg, #43436F, #65658E);
+        color: white;
+        padding: 50px 20px;
+        margin-bottom: 40px;
+    }
+
+        .saved-hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .saved-hero p {
+            color: var(--pastel-pink);
+            font-size: 17px;
+            margin: 0;
+        }
+
+    .saved-container {
+        max-width: 1200px;
+        margin: 0 auto 60px;
+    }
+
+    .saved-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 28px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+        .saved-toolbar h3 {
+            color: var(--slate-navy);
+            font-size: 23px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+    .saved-count {
+        background: #F8E8EF;
+        color: var(--berry-red);
+        padding: 8px 15px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .saved-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 15px;
+        padding: 25px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.06);
+        transition: 0.3s;
+    }
+
+        .saved-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(67, 67, 111, 0.13);
+            border-color: var(--pastel-pink);
+        }
+
+    .saved-card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        gap: 10px;
+    }
+
+    .category-badge {
+        background: #F8E8EF;
+        color: var(--berry-red);
+        padding: 7px 13px;
+        border-radius: 30px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .bookmark-icon {
+        background: #F3F3F8;
+        color: var(--slate-navy);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+    .saved-title {
+        color: var(--slate-navy);
+        font-size: 21px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .saved-description {
+        color: #77778F;
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 22px;
+        overflow-wrap: anywhere;
+    }
+
+    .saved-divider {
+        height: 1px;
+        background: #F0E5E9;
+        margin-top: auto;
+        margin-bottom: 17px;
+    }
+
+    .saved-actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .saved-btn {
+        flex: 1;
+        text-align: center;
+        padding: 10px 8px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+
+    .view-btn {
+        background: var(--slate-navy);
+        color: white;
+    }
+
+        .view-btn:hover {
+            background: #303052;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .remove-btn {
+        background: #FCEBED;
+        color: var(--berry-red);
+        border: 1px solid #EBC1C6;
+    }
+
+        .remove-btn:hover {
+            background: var(--berry-red);
+            color: white;
+        }
+
+    .empty-state {
+        background: white;
+        border: 1px dashed var(--pastel-pink);
+        border-radius: 16px;
+        text-align: center;
+        padding: 60px 25px;
+        box-shadow: 0 5px 18px rgba(67, 67, 111, 0.05);
+    }
+
+    .empty-icon {
+        font-size: 58px;
+        margin-bottom: 15px;
+    }
+
+    .empty-state h3 {
+        color: var(--slate-navy);
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .empty-state p {
+        color: #77778F;
+        font-size: 14px;
+        margin-bottom: 24px;
+    }
+
+    .browse-btn {
+        display: inline-block;
+        background: var(--berry-red);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 9px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+
+        .browse-btn:hover {
+            background: #982D3A;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    @@media (max-width: 576px) {
+        .saved-hero h1 {
+            font-size: 28px;
+        }
+
+        .saved-toolbar {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .saved-card {
+            padding: 20px;
+        }
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="saved-hero text-center">
+    <div class="container">
+        <h1>🔖 Saved Ideas</h1>
+        <p>Keep track of inspiring startup ideas and explore them whenever you want.</p>
+    </div>
+</div>
+
+<div class="container saved-container">
+
+    <!-- Toolbar -->
+    <div class="saved-toolbar">
+
+        <h3>📌 Your Bookmarked Ideas</h3>
+
+        @if (Model != null && Model.Any())
+        {
+            <span class="saved-count">
+                @Model.Count() Saved Ideas
+            </span>
+        }
+
+    </div>
+
+    <div class="row">
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var idea in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+
+                    <div class="saved-card">
+
+                        <div class="saved-card-top">
+
+                            <span class="category-badge">
+                                @(string.IsNullOrWhiteSpace(idea.Category)
+                                    ? "General"
+                                    : idea.Category)
+                            </span>
+
+                            <div class="bookmark-icon">
+                                🔖
+                            </div>
+
+                        </div>
+
+                        <h4 class="saved-title">
+                            @idea.Title
+                        </h4>
+
+                        <p class="saved-description">
+                            @if (!string.IsNullOrWhiteSpace(idea.Description))
+                            {
+                                @(idea.Description.Length > 150
+                                    ? idea.Description.Substring(0, 150) + "..."
+                                    : idea.Description)
+                            }
+                            else
+                            {
+                                <text>No description available.</text>
+                            }
+                        </p>
+
+                        <div class="saved-divider"></div>
+
+                        <!-- Action Buttons -->
+                        <div class="saved-actions">
+
+                            <a href="@Url.Action(
+                                "Details",
+                                "Idea",
+                                new { id = idea.Id })"
+                               class="saved-btn view-btn">
+                                👁 View Idea
+                            </a>
+
+                            <a href="@Url.Action(
+                                "RemoveSavedIdea",
+                                "Idea",
+                                new { ideaId = idea.Id })"
+                               class="saved-btn remove-btn"
+                               onclick="return confirm('Are you sure you want to remove this saved idea?');">
+                                ✕ Remove
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <!-- Empty State -->
+            <div class="col-12">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        🔖
+                    </div>
+
+                    <h3>No Saved Ideas Yet!</h3>
+
+                    <p>
+                        You haven't bookmarked any startup ideas.
+                        Browse the community and save ideas that inspire you.
+                    </p>
+
+                    <a href="@Url.Action("BrowseIdeas", "Idea")"
+                       class="browse-btn">
+                        💡 Browse Startup Ideas
+                    </a>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
