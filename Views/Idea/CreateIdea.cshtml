@@ -1,0 +1,288 @@
+﻿@model demostartupfinder.Models.Idea
+
+@{
+    ViewBag.Title = "Create Startup Idea";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .create-hero {
+        background: linear-gradient(135deg, #43436F, #65658E);
+        color: white;
+        padding: 55px 20px;
+        margin-bottom: 40px;
+    }
+
+        .create-hero h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .create-hero p {
+            color: #E2AAC3;
+            font-size: 17px;
+            margin: 0;
+        }
+
+    .create-wrapper {
+        max-width: 850px;
+        margin: 0 auto 60px;
+    }
+
+    .create-card {
+        background: white;
+        border: 1px solid #E0CBD1;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(67, 67, 111, 0.09);
+    }
+
+    .form-heading {
+        color: var(--slate-navy);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .form-subheading {
+        color: #77778F;
+        margin-bottom: 28px;
+    }
+
+    .form-label {
+        color: var(--slate-navy);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border: 1px solid var(--dust-pink);
+        border-radius: 9px;
+        padding: 12px 14px;
+        font-size: 14px;
+        background: #FFFEFE;
+        transition: 0.25s;
+    }
+
+        .form-control:focus {
+            border-color: var(--berry-red);
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.12);
+        }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 140px;
+    }
+
+    .form-text {
+        color: #77778F;
+        font-size: 12px;
+        margin-top: 7px;
+    }
+
+    .field-error {
+        color: var(--berry-red);
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .create-btn {
+        background: var(--berry-red);
+        color: white;
+        border: none;
+        border-radius: 9px;
+        padding: 12px 25px;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+        .create-btn:hover {
+            background: #982D3A;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .cancel-btn {
+        border: 1px solid var(--slate-navy);
+        color: var(--slate-navy);
+        border-radius: 9px;
+        padding: 12px 25px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+
+        .cancel-btn:hover {
+            background: var(--slate-navy);
+            color: white;
+        }
+
+    .form-divider {
+        height: 1px;
+        background: #F0E5E9;
+        margin: 25px 0;
+    }
+
+    .idea-tip {
+        background: #FAF3F6;
+        border-left: 4px solid var(--pastel-pink);
+        padding: 14px 17px;
+        border-radius: 7px;
+        color: var(--slate-navy);
+        font-size: 13px;
+        margin-top: 25px;
+    }
+
+    @@media (max-width: 576px) {
+        .create-hero {
+            padding: 40px 15px;
+        }
+
+            .create-hero h1 {
+                font-size: 28px;
+            }
+
+        .create-card {
+            padding: 22px 18px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+            .form-actions .btn,
+            .form-actions a {
+                width: 100%;
+                text-align: center;
+            }
+    }
+</style>
+
+<div class="create-hero text-center">
+    <div class="container">
+        <h1>💡 Create Startup Idea</h1>
+        <p>Share your vision, connect with talented people, and build something amazing.</p>
+    </div>
+</div>
+
+<div class="container create-wrapper">
+
+    <div class="create-card">
+
+        <h2 class="form-heading">🚀 Bring Your Idea to Life</h2>
+
+        <p class="form-subheading">
+            Fill in the details below to share your startup idea with the community.
+        </p>
+
+        @using (Html.BeginForm("CreateIdea", "Idea", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(
+                     true,
+                     "",
+                     new { @class = "alert alert-danger" })
+
+            <div class="mb-4">
+                <label class="form-label">Startup Idea Title *</label>
+
+                @Html.TextBoxFor(x => x.Title, new
+                {
+                    @class = "form-control",
+                    placeholder = "Example: AI Food Delivery Platform"
+                })
+
+                @Html.ValidationMessageFor(
+                         x => x.Title,
+                         "",
+                         new { @class = "field-error" })
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Description *</label>
+
+                @Html.TextAreaFor(x => x.Description, new
+                {
+                    @class = "form-control",
+                    rows = "6",
+                    placeholder = "Explain your startup idea, the problem it solves, and your vision..."
+                })
+
+                @Html.ValidationMessageFor(
+                         x => x.Description,
+                         "",
+                         new { @class = "field-error" })
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="mb-4">
+                <label class="form-label">Category</label>
+
+                @Html.TextBoxFor(x => x.Category, new
+                {
+                    @class = "form-control",
+                    placeholder = "Technology, Education, Food, Finance..."
+                })
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Required Skills</label>
+
+                @Html.TextBoxFor(x => x.RequiredSkills, new
+                {
+                    @class = "form-control",
+                    placeholder = "React, Python, Marketing, UI Design"
+                })
+
+                <div class="form-text">
+                    Separate multiple skills using commas.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">Required Team Size</label>
+
+                @Html.TextBoxFor(x => x.TeamSize, new
+                {
+                    @class = "form-control",
+                    type = "number",
+                    min = "1",
+                    max = "100"
+                })
+            </div>
+
+            <div class="form-divider"></div>
+
+            <div class="d-flex gap-3 form-actions">
+                <button type="submit" class="btn create-btn">
+                    🚀 Create Idea
+                </button>
+
+                <a href="@Url.Action("BrowseIdeas", "Idea")"
+                   class="btn cancel-btn">
+                    Cancel
+                </a>
+            </div>
+
+            <div class="idea-tip">
+                💡 <strong>Tip:</strong> Describe your idea clearly and mention the skills you need. This helps you find the right teammates.
+            </div>
+        }
+
+    </div>
+
+</div>

@@ -1,0 +1,321 @@
+﻿@model demostartupfinder.Models.Idea
+
+@{
+    ViewBag.Title = "Edit Startup Idea";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .edit-hero {
+        background: linear-gradient(135deg, #43436F, #65658E);
+        color: white;
+        padding: 50px 20px;
+        margin-bottom: 40px;
+    }
+
+        .edit-hero h1 {
+            font-size: 35px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .edit-hero p {
+            color: var(--pastel-pink);
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .edit-wrapper {
+        max-width: 850px;
+        margin: 0 auto 60px;
+    }
+
+    .edit-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 8px 25px rgba(67, 67, 111, 0.09);
+    }
+
+    .form-heading {
+        color: var(--slate-navy);
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .form-description {
+        color: #77778F;
+        font-size: 14px;
+        margin-bottom: 28px;
+    }
+
+    .form-label {
+        color: var(--slate-navy);
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border: 1px solid var(--dust-pink);
+        border-radius: 9px;
+        padding: 12px 14px;
+        font-size: 14px;
+        background: #FFFEFE;
+        transition: 0.25s;
+    }
+
+        .form-control:focus {
+            border-color: var(--berry-red);
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.12);
+        }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 145px;
+    }
+
+    .field-error {
+        color: var(--berry-red);
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .edit-divider {
+        height: 1px;
+        background: #F0E5E9;
+        margin: 25px 0;
+    }
+
+    .edit-btn {
+        background: var(--berry-red);
+        color: white;
+        border: none;
+        border-radius: 9px;
+        padding: 12px 24px;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+        .edit-btn:hover {
+            background: #982D3A;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .cancel-btn {
+        border: 1px solid var(--slate-navy);
+        color: var(--slate-navy);
+        background: white;
+        border-radius: 9px;
+        padding: 12px 24px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+
+        .cancel-btn:hover {
+            background: var(--slate-navy);
+            color: white;
+        }
+
+    .edit-tip {
+        background: #FAF3F6;
+        border-left: 4px solid var(--pastel-pink);
+        padding: 14px 17px;
+        border-radius: 7px;
+        color: var(--slate-navy);
+        font-size: 13px;
+        margin-top: 25px;
+    }
+
+    .alert {
+        border-radius: 9px;
+    }
+
+    @@media (max-width: 576px) {
+        .edit-hero {
+            padding: 40px 15px;
+        }
+
+            .edit-hero h1 {
+                font-size: 28px;
+            }
+
+        .edit-card {
+            padding: 22px 18px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+            .form-actions .btn,
+            .form-actions a {
+                width: 100%;
+                text-align: center;
+            }
+    }
+</style>
+
+<!-- Hero Section -->
+<div class="edit-hero text-center">
+    <div class="container">
+        <h1>✏️ Edit Startup Idea</h1>
+        <p>Update your vision and keep your startup idea fresh.</p>
+    </div>
+</div>
+
+<div class="container edit-wrapper">
+
+    <div class="edit-card">
+
+        <h2 class="form-heading">
+            🚀 Update Your Idea
+        </h2>
+
+        <p class="form-description">
+            Make changes to your startup details and save your latest updates.
+        </p>
+
+        @using (Html.BeginForm("Edit", "Idea", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(x => x.Id)
+
+            @Html.ValidationSummary(
+                     true,
+                     "",
+                     new { @class = "alert alert-danger" })
+
+            <!-- Title -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Startup Idea Title *
+                </label>
+
+                @Html.TextBoxFor(x => x.Title, new
+                {
+                    @class = "form-control",
+                    placeholder = "Enter your startup idea title"
+                })
+
+                @Html.ValidationMessageFor(
+                         x => x.Title,
+                         "",
+                         new { @class = "field-error" })
+
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Description *
+                </label>
+
+                @Html.TextAreaFor(x => x.Description, new
+                {
+                    @class = "form-control",
+                    rows = "6",
+                    placeholder = "Describe your startup idea, its purpose, and your vision..."
+                })
+
+                @Html.ValidationMessageFor(
+                         x => x.Description,
+                         "",
+                         new { @class = "field-error" })
+
+            </div>
+
+            <div class="edit-divider"></div>
+
+            <!-- Category -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Category
+                </label>
+
+                @Html.TextBoxFor(x => x.Category, new
+                {
+                    @class = "form-control",
+                    placeholder = "Technology, Education, Food, Finance..."
+                })
+
+            </div>
+
+            <!-- Required Skills -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Required Skills
+                </label>
+
+                @Html.TextBoxFor(x => x.RequiredSkills, new
+                {
+                    @class = "form-control",
+                    placeholder = "React, Python, Marketing, UI Design"
+                })
+
+                <small class="text-muted">
+                    Separate multiple skills using commas.
+                </small>
+
+            </div>
+
+            <!-- Team Size -->
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Required Team Size
+                </label>
+
+                @Html.TextBoxFor(x => x.TeamSize, new
+                {
+                    @class = "form-control",
+                    type = "number",
+                    min = "1",
+                    max = "100"
+                })
+
+            </div>
+
+            <div class="edit-divider"></div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-3 form-actions">
+
+                <button type="submit" class="btn edit-btn">
+                    💾 Save Changes
+                </button>
+
+                <a href="@Url.Action("MyIdeas", "Idea")"
+                   class="btn cancel-btn">
+                    Cancel
+                </a>
+
+            </div>
+
+            <div class="edit-tip">
+                💡 <strong>Tip:</strong> Keep your startup description and required skills updated so potential teammates know exactly what you are building.
+            </div>
+        }
+
+    </div>
+
+</div>

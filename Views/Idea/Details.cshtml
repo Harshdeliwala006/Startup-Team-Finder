@@ -1,0 +1,444 @@
+﻿@model demostartupfinder.Models.Idea
+
+@{
+    ViewBag.Title = "Idea Details";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .idea-hero {
+        background: linear-gradient(135deg, #43436F, #65658E);
+        color: white;
+        padding: 45px 20px;
+        margin-bottom: 35px;
+    }
+
+        .idea-hero h1 {
+            font-size: 35px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+    .details-container {
+        max-width: 1200px;
+        margin: 0 auto 60px;
+    }
+
+    .idea-card,
+    .sidebar-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 16px;
+        box-shadow: 0 6px 22px rgba(67, 67, 111, 0.07);
+        margin-bottom: 25px;
+    }
+
+    .idea-card {
+        padding: 35px;
+    }
+
+    .sidebar-card {
+        padding: 24px;
+    }
+
+    .category-badge {
+        display: inline-block;
+        background: #F8E8EF;
+        color: var(--berry-red);
+        padding: 7px 15px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 17px;
+    }
+
+    .idea-title {
+        color: var(--slate-navy);
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .idea-date {
+        color: #85859B;
+        font-size: 13px;
+    }
+
+    .idea-divider {
+        border: 0;
+        height: 1px;
+        background: #EEE2E7;
+        margin: 25px 0;
+    }
+
+    .section-heading {
+        color: var(--slate-navy);
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .idea-description {
+        color: #55556D;
+        font-size: 15px;
+        line-height: 1.9;
+        white-space: pre-line;
+        overflow-wrap: anywhere;
+    }
+
+    .skills-box {
+        background: #FAF3F6;
+        border-left: 4px solid var(--pastel-pink);
+        padding: 15px 18px;
+        border-radius: 8px;
+        color: var(--slate-navy);
+        overflow-wrap: anywhere;
+    }
+
+    .team-size-box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: #F3F3F8;
+        padding: 17px;
+        border-radius: 10px;
+    }
+
+    .team-icon {
+        background: var(--pastel-pink);
+        color: var(--slate-navy);
+        width: 45px;
+        height: 45px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 21px;
+    }
+
+    .team-size-box h5 {
+        color: var(--slate-navy);
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .sidebar-heading {
+        color: var(--slate-navy);
+        font-size: 19px;
+        font-weight: 700;
+        margin-bottom: 15px;
+    }
+
+    .creator-name {
+        color: var(--slate-navy);
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .creator-location {
+        color: #77778F;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .custom-primary-btn {
+        background: var(--berry-red);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 11px 16px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+
+        .custom-primary-btn:hover {
+            background: #982D3A;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+    .custom-outline-btn {
+        border: 1px solid var(--slate-navy);
+        color: var(--slate-navy);
+        background: white;
+        border-radius: 8px;
+        padding: 10px 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.25s;
+    }
+
+        .custom-outline-btn:hover {
+            background: var(--slate-navy);
+            color: white;
+        }
+
+    .save-btn {
+        background: #F8E8EF;
+        color: var(--berry-red);
+        border: 1px solid var(--pastel-pink);
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 700;
+        transition: 0.25s;
+    }
+
+        .save-btn:hover {
+            background: var(--pastel-pink);
+            color: var(--slate-navy);
+        }
+
+    .join-btn {
+        background: var(--slate-navy);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+        .join-btn:hover {
+            background: #303052;
+            color: white;
+        }
+
+    .join-textarea {
+        border: 1px solid var(--dust-pink);
+        border-radius: 8px;
+        resize: vertical;
+    }
+
+        .join-textarea:focus {
+            border-color: var(--berry-red);
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.12);
+        }
+
+    .alert {
+        border-radius: 10px;
+    }
+
+    @@media (max-width: 767px) {
+        .idea-hero h1 {
+            font-size: 28px;
+        }
+
+        .idea-card {
+            padding: 23px;
+        }
+
+        .idea-title {
+            font-size: 26px;
+        }
+    }
+</style>
+
+<div class="idea-hero text-center">
+    <div class="container">
+        <h1>💡 Startup Idea Details</h1>
+        <p class="mt-2 mb-0" style="color:#E2AAC3;">
+            Discover the vision, explore the opportunity, and find your next team.
+        </p>
+    </div>
+</div>
+
+<div class="container details-container">
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>✓</strong> @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            <strong>!</strong> @TempData["Error"]
+        </div>
+    }
+
+    <div class="row">
+
+        <!-- Main Idea Details -->
+        <div class="col-md-8">
+
+            <div class="idea-card">
+
+                <span class="category-badge">
+                    @(string.IsNullOrWhiteSpace(Model.Category)
+                        ? "General"
+                        : Model.Category)
+                </span>
+
+                <h2 class="idea-title">
+                    @Model.Title
+                </h2>
+
+                <p class="idea-date">
+                    📅 Posted on @Model.CreatedAt.ToString("dd-MM-yyyy")
+                </p>
+
+                <hr class="idea-divider" />
+
+                <h4 class="section-heading">
+                    📝 About This Idea
+                </h4>
+
+                <p class="idea-description">
+                    @Model.Description
+                </p>
+
+                <hr class="idea-divider" />
+
+                <h4 class="section-heading">
+                    🛠 Required Skills
+                </h4>
+
+                <div class="skills-box">
+                    @(string.IsNullOrWhiteSpace(Model.RequiredSkills)
+                        ? "No specific skills mentioned."
+                        : Model.RequiredSkills)
+                </div>
+
+                <hr class="idea-divider" />
+
+                <h4 class="section-heading">
+                    👥 Team Requirements
+                </h4>
+
+                <div class="team-size-box">
+                    <div class="team-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <h5>@Model.TeamSize Members</h5>
+                        <small class="text-muted">
+                            Required team size for this startup idea
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-md-4">
+
+            <!-- Idea Creator -->
+            <div class="sidebar-card">
+
+                <h4 class="sidebar-heading">
+                    👤 Idea Creator
+                </h4>
+
+                <hr class="idea-divider" />
+
+                <h5 class="creator-name">
+                    @(Model.User != null ? Model.User.Name : "Unknown User")
+                </h5>
+
+                <p class="creator-location">
+                    📍 @(Model.User != null &&
+                          !string.IsNullOrWhiteSpace(Model.User.Location)
+                          ? Model.User.Location
+                          : "Location not provided")
+                </p>
+
+                <a href="@Url.Action(
+                    "Details",
+                    "Teammate",
+                    new { id = Model.UserId })"
+                   class="btn custom-outline-btn w-100">
+                    View Creator Profile
+                </a>
+
+            </div>
+
+            <!-- Save Idea -->
+            <div class="sidebar-card">
+
+                <h4 class="sidebar-heading">
+                    🔖 Interested?
+                </h4>
+
+                <p class="text-muted small">
+                    Save this idea to find it easily later.
+                </p>
+
+                @using (Html.BeginForm("SaveIdea", "Idea", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <input type="hidden"
+                           name="ideaId"
+                           value="@Model.Id" />
+
+                    <button type="submit" class="save-btn w-100">
+                        🔖 Save This Idea
+                    </button>
+                }
+
+            </div>
+
+            <!-- Join Team -->
+            @if (Session["UserId"] != null &&
+                 (int)Session["UserId"] != Model.UserId)
+            {
+                <div class="sidebar-card">
+
+                    <h4 class="sidebar-heading">
+                        🤝 Want to Join?
+                    </h4>
+
+                    <p class="text-muted small">
+                        Send a message to the creator and express your interest in joining this startup.
+                    </p>
+
+                    @using (Html.BeginForm("JoinTeam", "Idea", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <input type="hidden"
+                               name="ideaId"
+                               value="@Model.Id" />
+
+                        <textarea name="message"
+                                  class="form-control join-textarea mb-3"
+                                  rows="4"
+                                  placeholder="Tell the creator why you want to join..."
+                                  required></textarea>
+
+                        <button type="submit" class="join-btn w-100">
+                            🤝 Send Join Request
+                        </button>
+                    }
+
+                </div>
+            }
+
+            <a href="@Url.Action("BrowseIdeas", "Idea")"
+               class="btn custom-outline-btn w-100">
+                ← Back to Browse Ideas
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

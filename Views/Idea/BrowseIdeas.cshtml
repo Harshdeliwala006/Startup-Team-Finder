@@ -1,0 +1,550 @@
+﻿
+@model IEnumerable<demostartupfinder.Models.Idea>
+
+@{
+    ViewBag.Title = "Browse Startup Ideas";
+}
+
+<style>
+    body {
+        background: #F3F3F3;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #34344F;
+    }
+
+    /* ================= HEADER ================= */
+
+    .ideas-header {
+        background: linear-gradient(135deg, #43436F, #292947);
+        padding: 55px 20px;
+        text-align: center;
+        border-radius: 0 0 28px 28px;
+        box-shadow: 0 6px 20px rgba(67, 67, 111, 0.15);
+        margin-bottom: 35px;
+    }
+
+        .ideas-header h1 {
+            color: #FFFFFF;
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .ideas-header p {
+            color: #E2AAC3;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    /* ================= MAIN CONTAINER ================= */
+
+    .ideas-container {
+        padding-bottom: 45px;
+    }
+
+    /* ================= SEARCH CARD ================= */
+
+    .search-card {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 15px;
+        padding: 22px;
+        margin-bottom: 32px;
+        box-shadow: 0 4px 15px rgba(67, 67, 111, 0.06);
+    }
+
+    .search-title {
+        color: #43436F;
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 13px;
+    }
+
+    .search-input {
+        height: 48px;
+        border: 1px solid #E0CBD1;
+        border-radius: 9px;
+        background: #FCFAFB;
+        color: #34344F;
+        padding: 10px 15px;
+        font-size: 14px;
+        box-shadow: none !important;
+    }
+
+        .search-input::placeholder {
+            color: #9993A0;
+        }
+
+        .search-input:focus {
+            border-color: #B83846;
+            background: #FFFFFF;
+            box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.10) !important;
+        }
+
+    .search-btn {
+        height: 48px;
+        background: #B83846;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 9px;
+        font-weight: 650;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+        .search-btn:hover {
+            background: #982D39;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+    /* ================= SECTION HEADING ================= */
+
+    .ideas-section-title {
+        color: #43436F;
+        font-size: 23px;
+        font-weight: 750;
+        margin-bottom: 20px;
+    }
+
+    /* ================= IDEA CARDS ================= */
+
+    .idea-card {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 17px;
+        height: 100%;
+        overflow: hidden;
+        box-shadow: 0 5px 17px rgba(67, 67, 111, 0.06);
+        transition: all 0.3s ease;
+    }
+
+        .idea-card:hover {
+            transform: translateY(-7px);
+            border-color: #E2AAC3;
+            box-shadow: 0 12px 26px rgba(67, 67, 111, 0.13);
+        }
+
+    .idea-card-body {
+        padding: 23px;
+    }
+
+    .idea-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 8px;
+    }
+
+    .category-badge {
+        display: inline-block;
+        background: #F5E8ED;
+        color: #B83846;
+        border-radius: 20px;
+        padding: 7px 13px;
+        font-size: 11px;
+        font-weight: 700;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .idea-icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        background: #E8E7F1;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 19px;
+    }
+
+    .idea-card h4 {
+        color: #43436F;
+        font-size: 19px;
+        font-weight: 750;
+        margin-bottom: 12px;
+        overflow-wrap: anywhere;
+    }
+
+    .idea-description {
+        color: #66667F;
+        font-size: 13px;
+        line-height: 1.8;
+        min-height: 70px;
+        margin-bottom: 17px;
+    }
+
+    .idea-divider {
+        border-color: #E0CBD1;
+        opacity: 0.8;
+        margin: 15px 0;
+    }
+
+    /* SKILLS */
+    .skills-label {
+        color: #43436F;
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    .skills-text {
+        color: #77778F;
+        font-size: 12px;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+        min-height: 38px;
+    }
+
+    /* IDEA DETAILS */
+    .idea-meta {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px;
+        margin-bottom: 18px;
+    }
+
+    .meta-item {
+        color: #66667F;
+        font-size: 12px;
+    }
+
+        .meta-item strong {
+            color: #43436F;
+        }
+
+    /* VIEW BUTTON */
+    .view-idea-btn {
+        display: block;
+        width: 100%;
+        text-align: center;
+        background: #B83846;
+        color: #FFFFFF;
+        border: none;
+        border-radius: 9px;
+        padding: 11px;
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .view-idea-btn:hover {
+            background: #982D39;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+    /* ================= EMPTY STATE ================= */
+
+    .empty-state {
+        background: #FFFFFF;
+        border: 1px solid #E0CBD1;
+        border-radius: 17px;
+        padding: 45px 20px;
+        text-align: center;
+        box-shadow: 0 5px 17px rgba(67, 67, 111, 0.05);
+    }
+
+    .empty-icon {
+        font-size: 55px;
+        margin-bottom: 15px;
+    }
+
+    .empty-state h4 {
+        color: #43436F;
+        font-size: 21px;
+        font-weight: 700;
+    }
+
+    .empty-state p {
+        color: #77778F;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+
+    .create-idea-btn {
+        display: inline-block;
+        background: #B83846;
+        color: #FFFFFF;
+        border-radius: 9px;
+        padding: 11px 22px;
+        font-size: 13px;
+        font-weight: 650;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .create-idea-btn:hover {
+            background: #982D39;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+    /* ================= ALERT ================= */
+
+    .alert {
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .alert-success {
+        color: #245B3B;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @@media (max-width: 768px) {
+        .ideas-header {
+            padding: 40px 15px;
+        }
+
+            .ideas-header h1 {
+                font-size: 28px;
+            }
+
+            .ideas-header p {
+                font-size: 14px;
+            }
+
+        .search-card {
+            padding: 17px;
+        }
+
+        .idea-card-body {
+            padding: 19px;
+        }
+
+        .ideas-section-title {
+            font-size: 20px;
+        }
+    }
+</style>
+
+
+<!-- ================= HEADER ================= -->
+
+<div class="ideas-header">
+
+    <div class="container">
+
+        <h1>🚀 Startup Ideas</h1>
+
+        <p>
+            Discover innovative ideas, connect with creators
+            and find opportunities to collaborate.
+        </p>
+
+    </div>
+
+</div>
+
+
+<div class="container ideas-container">
+
+    <!-- SUCCESS MESSAGE -->
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            ✓ @TempData["Success"]
+        </div>
+    }
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <div class="search-card">
+
+        <div class="search-title">
+            🔍 Discover Startup Opportunities
+        </div>
+
+        @using (Html.BeginForm(
+            "BrowseIdeas",
+            "Idea",
+            FormMethod.Get))
+        {
+            <div class="row g-3">
+
+                <div class="col-md-10">
+
+                    <input type="text"
+                           name="search"
+                           value="@ViewBag.Search"
+                           class="form-control search-input"
+                           placeholder="Search by idea, category or required skills..." />
+
+                </div>
+
+                <div class="col-md-2">
+
+                    <button type="submit"
+                            class="btn search-btn w-100">
+                        🔍 Search
+                    </button>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+
+    <!-- ================= IDEAS ================= -->
+
+    <h3 class="ideas-section-title">
+        💡 Explore Startup Ideas
+    </h3>
+
+    <div class="row g-4">
+
+        @if (Model != null && Model.Any())
+        {
+            foreach (var idea in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+
+                    <div class="idea-card">
+
+                        <div class="idea-card-body">
+
+                            <!-- CATEGORY -->
+
+                            <div class="idea-top">
+
+                                <span class="category-badge">
+                                    @(string.IsNullOrEmpty(idea.Category)
+                                        ? "Startup"
+                                        : idea.Category)
+                                </span>
+
+                                <div class="idea-icon">
+                                    💡
+                                </div>
+
+                            </div>
+
+
+                            <!-- TITLE -->
+
+                            <h4>
+                                @idea.Title
+                            </h4>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <p class="idea-description">
+
+                                @{
+                                    string description =
+                                        idea.Description ?? "";
+
+                                    if (description.Length > 120)
+                                    {
+                                        description =
+                                            description.Substring(0, 120) + "...";
+                                    }
+                                }
+
+                                @description
+
+                            </p>
+
+
+                            <hr class="idea-divider" />
+
+
+                            <!-- REQUIRED SKILLS -->
+
+                            <div class="skills-label">
+                                Required Skills
+                            </div>
+
+                            <div class="skills-text">
+                                @(string.IsNullOrEmpty(idea.RequiredSkills)
+                                    ? "Not specified"
+                                    : idea.RequiredSkills)
+                            </div>
+
+
+                            <!-- META INFORMATION -->
+
+                            <div class="idea-meta">
+
+                                <div class="meta-item">
+                                    👥 Team Size:
+                                    <strong>@idea.TeamSize</strong>
+                                </div>
+
+                                <div class="meta-item">
+                                    📅
+                                    <strong>
+                                        @idea.CreatedAt.ToString("dd-MM-yyyy")
+                                    </strong>
+                                </div>
+
+                            </div>
+
+
+                            <!-- VIEW BUTTON -->
+
+                            <a href="@Url.Action(
+                                "Details",
+                                "Idea",
+                                new { id = idea.Id })"
+                               class="view-idea-btn">
+
+                                View Idea Details →
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        💡
+                    </div>
+
+                    <h4>No Startup Ideas Found</h4>
+
+                    <p>
+                        We couldn't find any ideas matching your search.
+                        Try another keyword or publish your own idea.
+                    </p>
+
+                    <a href="@Url.Action(
+                        "CreateIdea",
+                        "Idea")"
+                       class="create-idea-btn">
+
+                        + Create Your Startup Idea
+
+                    </a>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>
