@@ -1,0 +1,268 @@
+﻿
+@model IEnumerable<demostartupfinder.Models.Notification>
+
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    .notification-header {
+        background: linear-gradient(135deg, var(--slate-navy), #62628E);
+        color: white;
+        padding: 65px 20px;
+        margin-bottom: 40px;
+    }
+
+        .notification-header h1 {
+            font-size: 38px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .notification-header p {
+            font-size: 17px;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+    .notification-container {
+        max-width: 950px;
+        margin: auto;
+        padding: 0 15px 50px;
+    }
+
+    .notification-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+        .notification-top h3 {
+            color: var(--slate-navy);
+            font-weight: 700;
+            margin: 0;
+        }
+
+    .notification-count {
+        background: var(--pastel-pink);
+        color: var(--slate-navy);
+        padding: 7px 15px;
+        border-radius: 25px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .notification-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-left: 5px solid var(--berry-red);
+        border-radius: 14px;
+        padding: 22px;
+        margin-bottom: 17px;
+        box-shadow: 0 4px 14px rgba(67, 67, 111, 0.06);
+        transition: all 0.3s ease;
+    }
+
+        .notification-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(67, 67, 111, 0.12);
+        }
+
+    .notification-row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .notification-icon {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
+        border-radius: 50%;
+        background: var(--pastel-pink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+    }
+
+    .notification-content {
+        flex: 1;
+        min-width: 0;
+    }
+
+        .notification-content p {
+            color: var(--slate-navy);
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+    .notification-date {
+        color: #888;
+        font-size: 12px;
+    }
+
+    .delete-btn {
+        background: transparent;
+        border: 1px solid var(--berry-red);
+        color: var(--berry-red);
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+
+        .delete-btn:hover {
+            background: var(--berry-red);
+            color: white;
+            text-decoration: none;
+        }
+
+    .empty-notifications {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 16px;
+        padding: 55px 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(67, 67, 111, 0.06);
+    }
+
+    .empty-icon {
+        font-size: 55px;
+        margin-bottom: 15px;
+    }
+
+    .empty-notifications h4 {
+        color: var(--slate-navy);
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .empty-notifications p {
+        color: #777;
+        margin: 0;
+    }
+
+    @@media (max-width: 576px) {
+        .notification-header {
+            padding: 45px 15px;
+        }
+
+            .notification-header h1 {
+                font-size: 29px;
+            }
+
+        .notification-card {
+            padding: 16px;
+        }
+
+        .notification-row {
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .notification-content {
+            flex-basis: calc(100% - 70px);
+        }
+
+        .delete-btn {
+            margin-left: 67px;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+<div class="notification-header text-center">
+    <div class="container">
+        <h1>🔔 Notifications</h1>
+        <p>Stay updated with your startup activities.</p>
+    </div>
+</div>
+
+<div class="notification-container">
+
+    <div class="notification-top">
+        <h3>Your Notifications</h3>
+
+        <span class="notification-count">
+            @(Model == null ? 0 : Model.Count()) Notifications
+        </span>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var notification in Model)
+        {
+            <div class="notification-card">
+
+                <div class="notification-row">
+
+                    <div class="notification-icon">
+                        🔔
+                    </div>
+
+                    <div class="notification-content">
+
+                        <p>
+                            @notification.Message
+                        </p>
+
+                        <span class="notification-date">
+                            <i class="glyphicon glyphicon-time"></i>
+                            @notification.CreatedAt.ToString("dd-MM-yyyy hh:mm tt")
+                        </span>
+
+                    </div>
+
+                    <a href="@Url.Action("Delete", "Notification",
+                        new { id = notification.Id })"
+                       class="delete-btn"
+                       onclick="return confirm('Are you sure you want to delete this notification?');">
+
+                        🗑 Delete
+
+                    </a>
+
+                </div>
+
+            </div>
+        }
+    }
+    else
+    {
+        <div class="empty-notifications">
+
+            <div class="empty-icon">🔔</div>
+
+            <h4>No Notifications Yet</h4>
+
+            <p>
+                You're all caught up! New startup activities
+                and updates will appear here.
+            </p>
+
+        </div>
+    }
+
+</div>
