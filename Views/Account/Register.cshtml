@@ -1,0 +1,290 @@
+
+@model demostartupfinder.Models.User
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<style>
+    body {
+        background-color: #F3F3F3;
+    }
+
+    .register-page {
+        min-height: 90vh;
+        padding: 55px 15px;
+        background: linear-gradient(135deg, #F3F3F3, #E0CBD1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .register-card {
+        width: 100%;
+        max-width: 650px;
+        background: #FFFFFF;
+        padding: 38px 40px;
+        border-radius: 18px;
+        border: 1px solid #E0CBD1;
+        box-shadow: 0 10px 30px rgba(67, 67, 111, 0.12);
+    }
+
+    .register-icon {
+        width: 72px;
+        height: 72px;
+        background: #E2AAC3;
+        color: #43436F;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        margin: 0 auto 18px;
+    }
+
+    .register-card h2 {
+        color: #43436F;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .register-description {
+        color: #777777;
+        text-align: center;
+        font-size: 15px;
+        margin-bottom: 30px;
+    }
+
+    .register-card label {
+        color: #43436F;
+        font-size:19px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .register-card .form-control {
+        min-height: 46px;
+        width:100%;
+        border: 1px solid #E0CBD1;
+        border-radius: 9px;
+        padding: 10px 14px;
+        background: #FDFBFC;
+        transition: 0.3s;
+    }
+
+    .register-card textarea.form-control {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .register-card .form-control:focus {
+        border-color: #B83846;
+        box-shadow: 0 0 0 3px rgba(184, 56, 70, 0.12);
+        background: #FFFFFF;
+    }
+
+    .register-card .text-danger {
+        font-size: 13px;
+        display: block;
+        margin-top: 5px;
+    }
+
+    .register-btn {
+        width: 100%;
+        background: #B83846;
+        color: #FFFFFF;
+        border: none;
+        padding: 14px;
+        border-radius: 9px;
+        font-size: 16px;
+        font-weight: 600;
+        margin-top: 12px;
+        transition: 0.3s;
+    }
+
+        .register-btn:hover {
+            background: #43436F;
+            color: #FFFFFF;
+            transform: translateY(-2px);
+        }
+
+    .register-divider {
+        border-color: #E0CBD1;
+        margin: 25px 0 18px;
+    }
+
+    .login-link {
+        text-align: center;
+        color: #666666;
+        font-size: 14px;
+    }
+
+        .login-link a {
+            color: #B83846;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+            .login-link a:hover {
+                color: #43436F;
+                text-decoration: underline;
+            }
+
+    .register-card .alert {
+        border-radius: 9px;
+    }
+
+    @@media (max-width: 576px) {
+        .register-page {
+            padding: 30px 15px;
+        }
+
+        .register-card {
+            padding: 28px 20px;
+        }
+    }
+</style>
+
+<div class="register-page">
+
+    <div class="register-card">
+
+        <div class="register-icon">
+            &#128221;
+        </div>
+
+        <h2>Create Your Account</h2>
+
+        <p class="register-description">
+            Join Startup Team Finder and turn your ideas
+            into successful projects with the right team.
+        </p>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(false, "", new { @class = "text-danger mb-3" })
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Full Name
+                </label>
+
+                @Html.TextBoxFor(
+                         model => model.Name,
+                         new
+                         {
+                             @class = "form-control",
+                             placeholder = "Enter your full name"
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Name,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Email Address
+                </label>
+
+                @Html.TextBoxFor(
+                         model => model.Email,
+                         new
+                         {
+                             @class = "form-control",
+                             type = "email",
+                             placeholder = "Enter your email"
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Email,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Password
+                </label>
+
+                @Html.PasswordFor(
+                         model => model.Password,
+                         new
+                         {
+                             @class = "form-control",
+                             placeholder = "Create a password"
+                         })
+
+                @Html.ValidationMessageFor(
+                         model => model.Password,
+                         "",
+                         new { @class = "text-danger" })
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Location
+                </label>
+
+                @Html.TextBoxFor(
+                         model => model.Location,
+                         new
+                         {
+                             @class = "form-control",
+                             placeholder = "Example: Rajkot, Gujarat"
+                         })
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    About You
+                </label>
+
+                @Html.TextAreaFor(
+                         model => model.Bio,
+                         new
+                         {
+                             @class = "form-control",
+                             rows = "4",
+                             placeholder = "Tell us about yourself, your interests and skills..."
+                         })
+
+            </div>
+
+            <button type="submit" class="register-btn">
+                Create My Account
+            </button>
+        }
+
+        <hr class="register-divider" />
+
+        <div class="login-link">
+            Already have an account?
+            <a href="@Url.Action("Login", "Account")">
+                Login Here
+            </a>
+        </div>
+
+    </div>
+
+</div>
