@@ -1,0 +1,350 @@
+﻿
+@{
+    ViewBag.Title = "Settings";
+}
+
+<style>
+    :root {
+        --off-white: #F3F3F3;
+        --dust-pink: #E0CBD1;
+        --pastel-pink: #E2AAC3;
+        --berry-red: #B83846;
+        --slate-navy: #43436F;
+    }
+
+    body {
+        background: var(--off-white);
+    }
+
+    /* Page Header */
+
+    .settings-header {
+        background: linear-gradient(135deg, #43436F, #666694);
+        color: white;
+        padding: 55px 20px;
+        text-align: center;
+        margin-bottom: 45px;
+    }
+
+        .settings-header h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .settings-header p {
+            color: #F3F3F3;
+            font-size: 16px;
+            margin: 0;
+        }
+
+    .header-icon {
+        font-size: 42px;
+        margin-bottom: 12px;
+    }
+
+    /* Main Container */
+
+    .settings-container {
+        max-width: 800px;
+        margin: auto;
+        padding: 0 15px 60px;
+    }
+
+    .settings-card {
+        background: white;
+        border: 1px solid var(--dust-pink);
+        border-radius: 17px;
+        padding: 32px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 20px rgba(67,67,111,0.06);
+    }
+
+    .section-heading {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        margin-bottom: 10px;
+    }
+
+    .section-icon {
+        width: 48px;
+        height: 48px;
+        background: #F8E8EF;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 23px;
+    }
+
+    .section-heading h4 {
+        color: var(--slate-navy);
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .section-description {
+        color: #888;
+        font-size: 13px;
+        margin: 0 0 25px 61px;
+    }
+
+    .settings-divider {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 23px 0;
+    }
+
+    /* Setting Fields */
+
+    .setting-group {
+        margin-bottom: 23px;
+    }
+
+        .setting-group label {
+            display: block;
+            color: var(--slate-navy);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+    .setting-help {
+        display: block;
+        color: #888;
+        font-size: 12px;
+        margin-top: 7px;
+    }
+
+    .setting-select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--dust-pink);
+        border-radius: 9px;
+        background: #FCFAFB;
+        color: var(--slate-navy);
+        font-size: 14px;
+        outline: none;
+        transition: 0.3s;
+    }
+
+        .setting-select:focus {
+            border-color: var(--berry-red);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(184,56,70,0.10);
+        }
+
+    /* Save Button */
+
+    .btn-save-settings {
+        background: var(--berry-red);
+        color: white;
+        border: none;
+        border-radius: 9px;
+        padding: 12px 25px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+        .btn-save-settings:hover {
+            background: var(--slate-navy);
+            transform: translateY(-2px);
+        }
+
+    /* Logout Section */
+
+    .logout-card {
+        border-left: 5px solid var(--berry-red);
+    }
+
+    .logout-icon {
+        background: #F9E5E7;
+    }
+
+    .logout-description {
+        color: #777;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 15px 0 22px;
+    }
+
+    .btn-logout {
+        display: inline-block;
+        background: var(--berry-red);
+        color: white;
+        border-radius: 9px;
+        padding: 11px 25px;
+        font-size: 14px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .btn-logout:hover {
+            background: var(--slate-navy);
+            color: white;
+            text-decoration: none;
+        }
+
+    /* Responsive */
+
+    @@media (max-width: 576px) {
+        .settings-header {
+            padding: 40px 15px;
+        }
+
+            .settings-header h1 {
+                font-size: 28px;
+            }
+
+        .settings-card {
+            padding: 23px 18px;
+        }
+
+        .section-description {
+            margin-left: 0;
+        }
+
+        .btn-save-settings,
+        .btn-logout {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<!-- Page Header -->
+
+<div class="settings-header">
+
+    <div class="container">
+
+        <div class="header-icon">⚙️</div>
+
+        <h1>Account Settings</h1>
+
+        <p>
+            Customize your preferences and manage your account.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Settings Content -->
+
+<div class="settings-container">
+
+    <!-- Account Preferences -->
+
+    <div class="settings-card">
+
+        <div class="section-heading">
+
+            <div class="section-icon">
+                ⚙️
+            </div>
+
+            <h4>Account Preferences</h4>
+
+        </div>
+
+        <p class="section-description">
+            Manage how you receive updates and how others view your profile.
+        </p>
+
+        @using (Html.BeginForm("Settings", "Profile", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <!-- Email Notifications -->
+
+            <div class="setting-group">
+
+                <label for="emailNotifications">
+                    📧 Email Notifications
+                </label>
+
+                <select class="setting-select"
+                        id="emailNotifications"
+                        name="EmailNotifications">
+
+                    <option value="true">Enabled</option>
+
+                    <option value="false">Disabled</option>
+
+                </select>
+
+                <span class="setting-help">
+                    Choose whether you want to receive email updates.
+                </span>
+
+            </div>
+
+            <!-- Profile Visibility -->
+
+            <div class="setting-group">
+
+                <label for="profileVisibility">
+                    👁️ Profile Visibility
+                </label>
+
+                <select class="setting-select"
+                        id="profileVisibility"
+                        name="ProfileVisibility">
+
+                    <option value="Public">Public</option>
+
+                    <option value="Private">Private</option>
+
+                </select>
+
+                <span class="setting-help">
+                    Control whether other users can view your profile.
+                </span>
+
+            </div>
+
+            <hr class="settings-divider" />
+
+            <button type="submit" class="btn-save-settings">
+                💾 Save Settings
+            </button>
+        }
+
+    </div>
+
+    <!-- Logout Section -->
+
+    <div class="settings-card logout-card">
+
+        <div class="section-heading">
+
+            <div class="section-icon logout-icon">
+                🚪
+            </div>
+
+            <h4>Logout</h4>
+
+        </div>
+
+        <p class="logout-description">
+            Ready to leave? Sign out of your Startup Team Finder
+            account securely. You can log in again whenever you want.
+        </p>
+
+        <a href="@Url.Action("Logout", "Account")"
+           class="btn-logout"
+           onclick="return confirm('Are you sure you want to logout?');">
+
+            🚪 Logout
+
+        </a>
+
+    </div>
+
+</div>
